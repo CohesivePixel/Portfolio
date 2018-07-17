@@ -1,9 +1,32 @@
 <template lang="html">
-  <div class="media bar">
-    <div class="media-content">
-      <div :class="{ 'indicator' : true, 'active' : active }" v-for="page in totalPages">
-        {{ setActive(page) }}
-      </div>
+
+</template>
+
+<script>
+export default {
+}
+</script>
+
+<style lang="css">
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <template lang="html">
+  <div class="bar">
+    <div :class="{ 'indicator' : true, 'active' : active }" v-for="page in totalPages">
+      {{ setActive(page) }}
+      {{ page }}
     </div>
   </div>
 </template>
@@ -17,14 +40,14 @@ export default {
 
   data() {
     return {
-      page: 0,
+      page: this.activePage,
       active: 0
     }
   },
 
   methods: {
     setActive(number) {
-      if (number === this.activePage - 1) {
+      if (number === this.page) {
         this.active = 1;
       } else {
         this.active = 0;
@@ -39,7 +62,7 @@ export default {
   $size: 8.5px;
 
   .bar {
-    margin: 1.4vh 3.5vw 3.4vh;
+    margin: 1.4vh 10vw 3.4vh;
   }
 
   .indicator {
@@ -54,4 +77,4 @@ export default {
     @extend .indicator;
     background: linear-gradient(rgb(183, 30, 138), rgb(239, 23, 70));
   }
-</style>
+</style> -->

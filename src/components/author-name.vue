@@ -12,8 +12,9 @@ export default {
   .author-name {
     font-family: 'Avenir-Black';
     font-size: 2.4rem;
-    margin-top: 3.4vh;
-    margin-left: 3.4vw;
+    padding-top: 3.4vh;
+    padding-left: 10vw;
+    margin: 0;
 
     &:before {
       content: 'BEN';

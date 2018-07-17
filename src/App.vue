@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <author-name></author-name>
-    <progress-bar></progress-bar>
+    <progress-bar :totalPages="total" :activePage="active"></progress-bar>
     <div class="content-container">
       <work-softbox></work-softbox>
       <text-block></text-block>
@@ -36,7 +36,7 @@ export default {
   data () {
     return {
       total: 30,
-      active: 3,
+      active: 1,
       vibrantColours: {
         r: 0,
         g: 0,
@@ -47,7 +47,7 @@ export default {
 
   methods: {
     getPrimaryColour() {
-      Vibrant.from(ImgJaar).getPalette((err, palette) => {
+      Vibrant.from(ImgBaseLine).getPalette((err, palette) => {
         this.vibrantColours.r = palette.Vibrant._rgb[0];
         this.vibrantColours.g = palette.Vibrant._rgb[1];
         this.vibrantColours.b = palette.Vibrant._rgb[2];
@@ -66,6 +66,6 @@ export default {
     position: absolute;
     width: 100%;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-45%);
   }
 </style>
