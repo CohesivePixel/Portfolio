@@ -1,0 +1,69 @@
+<template lang="html">
+  <div class="text-block">
+    <h1 class="work-title">{{ blockTitle }}</h1>
+    <object class="divider" width="35%" height="5px"></object>
+    <p class="work-text">{{ blockText }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      blockTitle: 'JAARTRUI',
+      blockText: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodoligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Intege tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.'
+    }
+  },
+  methods: {
+    setBlockHeight() {
+      const imgFrame = document.getElementById('pic');
+      return;
+    }
+  },
+  mounted() {
+    this.setBlockHeight();
+  }
+}
+</script>
+
+<style lang="scss">
+  $divider-distance: 2vh;
+
+  .text-block {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25vw;
+    float: right;
+    margin: 0 7vw;
+
+    .work-text {
+      font-family: "Open Sans";
+      font-weight: 100;
+      font-size: 18px;
+      color: white;
+      width: 100%;
+      letter-spacing: 0.35px;
+      float: left;
+      margin-top: $divider-distance;
+    }
+
+    .work-title {
+      font-family: "Open Sans";
+      font-weight: 800;
+      font-size: 54px;
+      color: white;
+      width: 100%;
+      margin: 0 0 $divider-distance 0;
+      letter-spacing: 5px;
+      text-align: right;
+    }
+  }
+
+  .divider {
+    border: 1px solid white;
+    float: right;
+    display: block;
+    background-color: white;
+  }
+</style>
