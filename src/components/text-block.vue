@@ -40,7 +40,7 @@ export default {
     .work-text {
       font-family: "Open Sans";
       font-weight: 100;
-      font-size: 18px;
+      font-size: 1.1vw;
       color: white;
       width: 100%;
       letter-spacing: 0.35px;
@@ -51,7 +51,7 @@ export default {
     .work-title {
       font-family: "Open Sans";
       font-weight: 800;
-      font-size: 54px;
+      font-size: 3.4vw;
       color: white;
       width: 100%;
       margin: 0 0 $divider-distance 0;
