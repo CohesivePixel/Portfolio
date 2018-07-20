@@ -11,7 +11,23 @@ export default {
   props: [
     'maximum',
     'progress'
-  ]
+  ],
+
+  data() {
+    return {
+      part: 0
+    }
+  },
+
+  methods: {
+    calculatePercentage() {
+      this.part = 100 - Math.round((this.progress / this.maximum) * 100);
+    }
+  },
+
+  beforeMount() {
+    this.calculatePercentage();
+  }
 }
 </script>
 
@@ -22,7 +38,7 @@ export default {
       height: 1vh;
 
       .progress {
-        width: 30%;
+        width: 97%;
         background-color: white;
         height: 1vh;
         float: right;
