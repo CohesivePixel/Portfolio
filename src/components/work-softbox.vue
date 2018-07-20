@@ -22,7 +22,7 @@ export default {
   .picture {
     box-shadow: 0 5px 45px rgba(69, 69, 69, 0.5);
     width: 45vw;
-    //height: 60vh;
+    // height: 60vh;
     margin-left: 10vw;
   }
 </style>

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="progress-bar">
-    <div class="progress">
+    <div class="progress" :style="barStyle">
 
     </div>
   </div>
@@ -8,24 +8,41 @@
 
 <script>
 export default {
-  props: [
-    'maximum',
-    'progress'
-  ],
+  props: {
+    maximum: Number,
+    progress: Number,
+    colpack: Object
+  },
 
   data() {
     return {
-      part: 0
+      colourPack: {
+        lightVibrant: this.colpack.lightVibrant,
+        lightMuted: this.colpack.lightMuted
+      },
+      barStyle: {
+        width: ''
+      }
     }
   },
 
   methods: {
     calculatePercentage() {
-      this.part = 100 - Math.round((this.progress / this.maximum) * 100);
+      this.barStyle.width = (100 - Math.round((this.progress / this.maximum) * 100)).toString() + '%';
+    },
+
+    colourToHex(colour) {
+      let hex = colour.toString(16);
+      return hex.length == 1 ? "0" + hex : hex;
+    },
+
+    rgbToHex(r, g, b) {
+      console.log(r, g, b);
+      return '#' + this.colourToHex(r) + this.colourToHex(g) + this.colourToHex(b);
     }
   },
 
-  beforeMount() {
+  mounted() {
     this.calculatePercentage();
   }
 }
@@ -38,7 +55,6 @@ export default {
       height: 1vh;
 
       .progress {
-        width: 97%;
         background-color: white;
         height: 1vh;
         float: right;

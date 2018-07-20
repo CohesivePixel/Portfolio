@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <progress-bar :maximum="total" :progress="active"></progress-bar>
+    <progress-bar :maximum="total" :progress="active" :colpack="colourPack"></progress-bar>
     <author-name></author-name>
     <div class="content-container">
       <work-softbox></work-softbox>
@@ -36,11 +36,15 @@ export default {
   data () {
     return {
       total: 30,
-      active: 1,
+      active: 10,
       vibrantColours: {
         r: 0,
         g: 0,
         b: 0
+      },
+      colourPack: {
+        lightVibrant: 0,
+        lightMuted: 0
       }
     }
   },
@@ -51,6 +55,8 @@ export default {
         this.vibrantColours.r = palette.Vibrant._rgb[0];
         this.vibrantColours.g = palette.Vibrant._rgb[1];
         this.vibrantColours.b = palette.Vibrant._rgb[2];
+        this.colourPack.lightVibrant = palette.LightVibrant;
+        this.colourPack.lightMuted = palette.LightMuted;
       });
     }
   },
