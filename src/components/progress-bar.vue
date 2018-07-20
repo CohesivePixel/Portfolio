@@ -1,13 +1,33 @@
 <template lang="html">
+  <div class="progress-bar">
+    <div class="progress">
 
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
+  props: [
+    'maximum',
+    'progress'
+  ]
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+  .progress-bar {
+      background: linear-gradient(to right, rgb(183, 30, 138) 0%, rgb(239, 23, 70) 100%);
+      width: 100%;
+      height: 1vh;
+
+      .progress {
+        width: 30%;
+        background-color: white;
+        height: 1vh;
+        float: right;
+    }
+  }
 </style>
 
 

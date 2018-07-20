@@ -1,7 +1,7 @@
 <template>
   <div id="app">
+    <progress-bar :maximum="total" :progress="active"></progress-bar>
     <author-name></author-name>
-    <progress-bar :totalPages="total" :activePage="active"></progress-bar>
     <div class="content-container">
       <work-softbox></work-softbox>
       <text-block></text-block>
