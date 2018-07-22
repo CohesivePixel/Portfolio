@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <progress-bar :maximum="total" :progress="active"></progress-bar>
+    <progress-bar :maximum="total"
+                  :progress="active"
+                  :colourStart="colour.lightVibrant"
+                  :colourEnd="colour.lightMuted">
+    </progress-bar>
     <author-name></author-name>
     <div class="content-container">
       <work-softbox></work-softbox>
@@ -48,9 +52,11 @@ export default {
 
   methods: {
     extractColours() {
-      vibrant.from(ImgBaseLine).getPalette()
+      vibrant.from(ImgJaar).getPalette()
         .then((palette) => {
-          this.colour.vibrant = '#' + this.getHex(palette.Vibrant);
+          this.colour.vibrant = palette.Vibrant ? '#' + this.getHex(palette.Vibrant) : '#eee';
+          this.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#eee';
+          this.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#eee';
         });
       return
     },
