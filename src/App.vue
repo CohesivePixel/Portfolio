@@ -6,7 +6,7 @@
       <work-softbox></work-softbox>
       <text-block></text-block>
     </div>
-    <coloured-backplate></coloured-backplate>
+    <coloured-backplate :colour="colour.vibrant"></coloured-backplate>
   </div>
 </template>
 
@@ -49,8 +49,18 @@ export default {
   methods: {
     extractColours() {
       vibrant.from(ImgBaseLine).getPalette()
-        .then((palette) => console.log(palette));
+        .then((palette) => {
+          this.colour.vibrant = '#' + this.getHex(palette.Vibrant);
+        });
       return
+    },
+
+    getHex(rgb) {
+      const r = rgb._rgb[0];
+      const g = rgb._rgb[1];
+      const b = rgb._rgb[2];
+
+      return rgbHex(r, g, b);
     }
   },
 
