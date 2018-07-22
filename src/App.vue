@@ -5,7 +5,7 @@
                   :colourStart="colour.lightVibrant"
                   :colourEnd="colour.lightMuted">
     </progress-bar>
-    <author-name></author-name>
+    <author-name :colour="colour.vibrant"></author-name>
     <div class="content-container">
       <work-softbox></work-softbox>
       <text-block></text-block>

@@ -1,24 +1,47 @@
 <template lang="html">
-  <h1 class="author-name"> | EY</h1>
+  <div class="author-title">
+    <h1 class="firstname" :style="nameStyle">BEN</h1>
+    <h1 class="lastname"> | EY</h1>
+  </div>
 </template>
 
 <script>
 export default {
+  props: {
+    colour: String
+  },
 
+  data() {
+    return {
+      nameStyle: {
+        color: 'black'
+      }
+    }
+  },
+
+  watch: {
+    colour() {
+      this.nameStyle.color = this.colour;
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-  .author-name {
-    font-family: 'Avenir-Black';
-    font-size: 2.4rem;
-    padding-top: 3.4vh;
+  .author-title {
+    padding-top: 7.5vh;
     padding-left: 10vw;
     margin: 0;
 
-    &:before {
-      content: 'BEN';
-      color: red;
+    .lastname {
+      font-family: 'Avenir-Black';
+      font-size: 2.8rem;
+      float: left;
+    }
+
+    .firstname {
+      @extend .lastname;
+      margin-right: 1.8vh;
     }
   }
 </style>
