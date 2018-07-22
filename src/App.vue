@@ -1,12 +1,16 @@
 <template>
   <div id="app">
-    <progress-bar :maximum="total" :progress="active" :colpack="colourPack"></progress-bar>
+    <progress-bar :maximum="total"
+                  :progress="active"
+                  :colourStart="colour.lightVibrant"
+                  :colourEnd="colour.lightMuted">
+    </progress-bar>
     <author-name></author-name>
     <div class="content-container">
       <work-softbox></work-softbox>
       <text-block></text-block>
     </div>
-    <coloured-backplate :colour="{Red: vibrantColours.r, Green: vibrantColours.g, Blue: vibrantColours.b}"></coloured-backplate>
+    <coloured-backplate :colour="colour.vibrant"></coloured-backplate>
   </div>
 </template>
 
@@ -17,7 +21,8 @@ import ProgressBar from './components/progress-bar.vue';
 import WorkSoftbox from './components/work-softbox.vue';
 import TextBlock from './components/text-block.vue';
 
-const Vibrant = require('node-vibrant');
+const vibrant = require('node-vibrant');
+const rgbHex = require('rgb-hex');
 
 import ImgTable from './assets/images/3 - Table.png';
 import ImgBaseLine from './assets/images/BaseLine Desktop.jpg';
@@ -37,32 +42,36 @@ export default {
     return {
       total: 30,
       active: 10,
-      vibrantColours: {
-        r: 0,
-        g: 0,
-        b: 0
-      },
-      colourPack: {
-        lightVibrant: 0,
-        lightMuted: 0
+      colour: {
+        vibrant: '',
+        lightVibrant: '',
+        lightMuted: ''
       }
     }
   },
 
   methods: {
-    getPrimaryColour() {
-      Vibrant.from(ImgBaseLine).getPalette((err, palette) => {
-        this.vibrantColours.r = palette.Vibrant._rgb[0];
-        this.vibrantColours.g = palette.Vibrant._rgb[1];
-        this.vibrantColours.b = palette.Vibrant._rgb[2];
-        this.colourPack.lightVibrant = palette.LightVibrant;
-        this.colourPack.lightMuted = palette.LightMuted;
-      });
+    extractColours() {
+      vibrant.from(ImgBaseLine).getPalette()
+        .then((palette) => {
+          this.colour.vibrant = palette.Vibrant ? '#' + this.getHex(palette.Vibrant) : '#eee';
+          this.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#eee';
+          this.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#eee';
+        });
+      return
+    },
+
+    getHex(rgb) {
+      const r = rgb._rgb[0];
+      const g = rgb._rgb[1];
+      const b = rgb._rgb[2];
+
+      return rgbHex(r, g, b);
     }
   },
 
   beforeMount() {
-    this.getPrimaryColour();
+    this.extractColours();
   }
 }
 </script>

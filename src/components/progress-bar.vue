@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="progress-bar">
+  <div class="progress-bar" :style="gradientStyle" v-if="colourStart">
     <div class="progress" :style="barStyle">
 
     </div>
@@ -11,18 +11,25 @@ export default {
   props: {
     maximum: Number,
     progress: Number,
-    colpack: Object
+    colourStart: String,
+    colourEnd: String
   },
 
   data() {
     return {
-      colourPack: {
-        lightVibrant: this.colpack.lightVibrant,
-        lightMuted: this.colpack.lightMuted
-      },
       barStyle: {
         width: ''
+      },
+
+      gradientStyle: {
+        background: ''
       }
+    }
+  },
+
+  watch: {
+    colourEnd() {
+      this.setGradient()
     }
   },
 
@@ -30,29 +37,22 @@ export default {
     calculatePercentage() {
       this.barStyle.width = (100 - Math.round((this.progress / this.maximum) * 100)).toString() + '%';
     },
-
-    colourToHex(colour) {
-      let hex = colour.toString(16);
-      return hex.length == 1 ? "0" + hex : hex;
-    },
-
-    rgbToHex(r, g, b) {
-      console.log(r, g, b);
-      return '#' + this.colourToHex(r) + this.colourToHex(g) + this.colourToHex(b);
+    setGradient() {
+      this.gradientStyle.background = 'linear-gradient(to right,' + this.colourStart + ',' + this.colourEnd + ')';
     }
   },
 
-  mounted() {
+  beforeMount() {
     this.calculatePercentage();
+    this.setGradient();
   }
 }
 </script>
 
 <style lang="scss">
   .progress-bar {
-      background: linear-gradient(to right, rgb(183, 30, 138) 0%, rgb(239, 23, 70) 100%);
       width: 100%;
-      height: 1vh;
+      height: 0.8vh;
 
       .progress {
         background-color: white;
