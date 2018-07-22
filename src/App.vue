@@ -52,7 +52,7 @@ export default {
 
   methods: {
     extractColours() {
-      vibrant.from(ImgJaar).getPalette()
+      vibrant.from(ImgBaseLine).getPalette()
         .then((palette) => {
           this.colour.vibrant = palette.Vibrant ? '#' + this.getHex(palette.Vibrant) : '#eee';
           this.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#eee';

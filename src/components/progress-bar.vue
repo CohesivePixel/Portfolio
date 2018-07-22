@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="progress-bar">
+  <div class="progress-bar" :style="gradientStyle" v-if="colourStart">
     <div class="progress" :style="barStyle">
 
     </div>
@@ -10,34 +10,49 @@
 export default {
   props: {
     maximum: Number,
-    progress: Number
+    progress: Number,
+    colourStart: String,
+    colourEnd: String
   },
 
   data() {
     return {
       barStyle: {
         width: ''
+      },
+
+      gradientStyle: {
+        background: ''
       }
+    }
+  },
+
+  watch: {
+    colourEnd() {
+      this.setGradient()
     }
   },
 
   methods: {
     calculatePercentage() {
       this.barStyle.width = (100 - Math.round((this.progress / this.maximum) * 100)).toString() + '%';
+    },
+    setGradient() {
+      this.gradientStyle.background = 'linear-gradient(to right,' + this.colourStart + ',' + this.colourEnd + ')';
     }
   },
 
-  mounted() {
+  beforeMount() {
     this.calculatePercentage();
+    this.setGradient();
   }
 }
 </script>
 
 <style lang="scss">
   .progress-bar {
-      background: linear-gradient(to right, rgb(183, 30, 138) 0%, rgb(239, 23, 70) 100%);
       width: 100%;
-      height: 1vh;
+      height: 0.8vh;
 
       .progress {
         background-color: white;
