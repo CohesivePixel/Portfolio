@@ -47,8 +47,9 @@ export default {
   },
 
   methods: {
-    extractColour() {
-      vibrant.from(ImgBaseLine)
+    extractColours() {
+      vibrant.from(ImgBaseLine).getPalette()
+        .then((palette) => console.log(palette));
       return
     }
   },
