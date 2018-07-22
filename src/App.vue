@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <progress-bar :maximum="total" :progress="active" :colpack="colourPack"></progress-bar>
+    <progress-bar :maximum="total" :progress="active"></progress-bar>
     <author-name></author-name>
     <div class="content-container">
       <work-softbox></work-softbox>
       <text-block></text-block>
     </div>
-    <coloured-backplate :colour="{Red: vibrantColours.r, Green: vibrantColours.g, Blue: vibrantColours.b}"></coloured-backplate>
+    <coloured-backplate></coloured-backplate>
   </div>
 </template>
 
@@ -17,7 +17,8 @@ import ProgressBar from './components/progress-bar.vue';
 import WorkSoftbox from './components/work-softbox.vue';
 import TextBlock from './components/text-block.vue';
 
-const Vibrant = require('node-vibrant');
+const vibrant = require('node-vibrant');
+const rgbHex = require('rgb-hex');
 
 import ImgTable from './assets/images/3 - Table.png';
 import ImgBaseLine from './assets/images/BaseLine Desktop.jpg';
@@ -37,32 +38,23 @@ export default {
     return {
       total: 30,
       active: 10,
-      vibrantColours: {
-        r: 0,
-        g: 0,
-        b: 0
-      },
-      colourPack: {
-        lightVibrant: 0,
-        lightMuted: 0
+      colour: {
+        vibrant: '',
+        lightVibrant: '',
+        lightMuted: ''
       }
     }
   },
 
   methods: {
-    getPrimaryColour() {
-      Vibrant.from(ImgBaseLine).getPalette((err, palette) => {
-        this.vibrantColours.r = palette.Vibrant._rgb[0];
-        this.vibrantColours.g = palette.Vibrant._rgb[1];
-        this.vibrantColours.b = palette.Vibrant._rgb[2];
-        this.colourPack.lightVibrant = palette.LightVibrant;
-        this.colourPack.lightMuted = palette.LightMuted;
-      });
+    extractColour() {
+      vibrant.from(ImgBaseLine)
+      return
     }
   },
 
   beforeMount() {
-    this.getPrimaryColour();
+    this.extractColours();
   }
 }
 </script>

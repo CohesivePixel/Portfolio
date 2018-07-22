@@ -10,16 +10,11 @@
 export default {
   props: {
     maximum: Number,
-    progress: Number,
-    colpack: Object
+    progress: Number
   },
 
   data() {
     return {
-      colourPack: {
-        lightVibrant: this.colpack.lightVibrant,
-        lightMuted: this.colpack.lightMuted
-      },
       barStyle: {
         width: ''
       }
@@ -29,16 +24,6 @@ export default {
   methods: {
     calculatePercentage() {
       this.barStyle.width = (100 - Math.round((this.progress / this.maximum) * 100)).toString() + '%';
-    },
-
-    colourToHex(colour) {
-      let hex = colour.toString(16);
-      return hex.length == 1 ? "0" + hex : hex;
-    },
-
-    rgbToHex(r, g, b) {
-      console.log(r, g, b);
-      return '#' + this.colourToHex(r) + this.colourToHex(g) + this.colourToHex(b);
     }
   },
 

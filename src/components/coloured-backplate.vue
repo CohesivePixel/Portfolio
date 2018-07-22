@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="backplate">
     <svg width="100%" viewBox="0 0 100 100" preserveAspectRatio="xMaxYMax">
-      <polygon points="100,100 100,0 65,0 25,100" :style="'fill:rgb(' + colour.Red + ',' + colour.Green + ',' + colour.Blue + ')'" />
+      <polygon points="100,100 100,0 65,0 25,100" :style="" />
     </svg>
   </div>
 </template>
@@ -11,11 +11,7 @@
 
 export default {
   props: {
-    colour: {
-      Red: Number,
-      Green: Number,
-      Blue: Number
-    }
+
   }
 }
 </script>
