@@ -1,5 +1,7 @@
 <template lang="html">
-  <div class="progress" :style="barStyle"></div>
+  <div class="progress-container" :style="progressGradient">
+    <div class="progress" :style="progressMask"></div>
+  </div>
 </template>
 
 <script>
@@ -13,25 +15,27 @@ export default {
 
   data() {
     return {
-      barStyle: {
-        width: '',
+      progressGradient: {
         background: ''
+      },
+      progressMask: {
+        width: ''
       }
     }
   },
 
   watch: {
     colourEnd() {
-      this.setGradient()
+      this.setGradient();
     }
   },
 
   methods: {
     calculatePercentage() {
-      this.barStyle.width =  Math.round((this.progress / this.maximum) * 100).toString() + '%';
+      this.progressMask.width = (100 - Math.round((this.progress / this.maximum) * 100)).toString() + '%';
     },
     setGradient() {
-      this.barStyle.background = 'linear-gradient(to right,' + this.colourStart + ',' + this.colourEnd + ')';
+      this.progressGradient.background = 'linear-gradient(to right,' + this.colourStart + ',' + this.colourEnd + ')';
     }
   },
 
@@ -43,10 +47,14 @@ export default {
 </script>
 
 <style lang="scss">
+  .progress-container {
+    width: 100%;
+    height: 0.7vh;
+
     .progress {
-      width: 100%;
-      height: 0.5vh;
-      background-color: white;
-      float: left;
+      height: 100%;
+      background-color: #eee;
+      float: right;
+    }
   }
 </style>

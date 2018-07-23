@@ -36,8 +36,8 @@ export default {
 
   data () {
     return {
+      active: 27,
       total: 30,
-      active: 15,
       image: require('./assets/images/Jaar \'17@3x-100.jpg'),
       colour: {
         vibrant: '',
