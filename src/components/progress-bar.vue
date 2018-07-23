@@ -45,7 +45,7 @@ export default {
 <style lang="scss">
     .progress {
       width: 100%;
-      height: 0.8vh;
+      height: 0.5vh;
       background-color: white;
       float: left;
   }
