@@ -7,7 +7,7 @@
     </progress-bar>
     <author-name :colour="colour.vibrant"></author-name>
     <div class="content-container">
-      <work-softbox></work-softbox>
+      <work-softbox :imgPath="image"></work-softbox>
       <text-block></text-block>
     </div>
     <coloured-backplate :colour="colour.vibrant"></coloured-backplate>
@@ -24,10 +24,6 @@ import TextBlock from './components/text-block.vue';
 const vibrant = require('node-vibrant');
 const rgbHex = require('rgb-hex');
 
-import ImgTable from './assets/images/3 - Table.png';
-import ImgBaseLine from './assets/images/BaseLine Desktop.jpg';
-import ImgJaar from './assets/images/Jaar \'17@3x-100.jpg';
-
 export default {
   name: 'app',
   components: {
@@ -41,7 +37,8 @@ export default {
   data () {
     return {
       total: 30,
-      active: 5,
+      active: 15,
+      image: require('./assets/images/BaseLine Desktop.jpg'),
       colour: {
         vibrant: '',
         lightVibrant: '',
@@ -52,9 +49,9 @@ export default {
 
   methods: {
     extractColours() {
-      vibrant.from(ImgBaseLine).getPalette()
+      vibrant.from(this.image).getPalette()
         .then((palette) => {
-          this.colour.vibrant = palette.Vibrant ? '#' + this.getHex(palette.Vibrant) : '#eee';
+          this.colour.vibrant = '#' + this.getHex(palette.Vibrant);
           this.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#eee';
           this.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#eee';
         });

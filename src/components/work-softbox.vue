@@ -1,16 +1,15 @@
 <template lang="html">
-  <img id="pic" class="picture" :src="source" :alt="altmsg" :title="titlemsg">
+  <img id="pic" class="picture" :src="imgPath" :alt="altmsg" :title="titlemsg">
 </template>
 
 <script>
-import ImgTable from '../assets/images/3 - Table.png';
-import ImgBaseLine from '../assets/images/BaseLine Desktop.jpg';
-import ImgJaar from '../assets/images/Jaar \'17@3x-100.jpg';
-
 export default {
+  props: {
+    imgPath: String
+  },
+
   data() {
     return {
-      source: ImgBaseLine,
       altmsg: 'This image seems to be broken',
       titlemsg: 'Werktitel'
     }
