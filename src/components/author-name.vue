@@ -30,7 +30,7 @@ export default {
 <style lang="scss">
   .author-title {
     padding-top: 4.5vh;
-    padding-left: 10vw;
+    padding-left: 5vw;
     margin: 0;
 
     .lastname {
