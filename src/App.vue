@@ -7,7 +7,7 @@
     </progress-bar>
     <author-name :colour="colour.vibrant"></author-name>
     <div class="content-container">
-      <work-softbox :imgPath="image"></work-softbox>
+      <work-softbox :imgPath="image" :vertical="true"></work-softbox>
       <text-block></text-block>
     </div>
     <coloured-backplate :colour="colour.vibrant"></coloured-backplate>
@@ -38,7 +38,7 @@ export default {
     return {
       total: 30,
       active: 15,
-      image: require('./assets/images/BaseLine Desktop.jpg'),
+      image: require('./assets/images/Jaar \'17@3x-100.jpg'),
       colour: {
         vibrant: '',
         lightVibrant: '',

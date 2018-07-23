@@ -1,7 +1,7 @@
 <template lang="html">
   <img  id="pic"
         ref="picture"
-        :class="[image.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
+        :class="[this.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
         :src="imgPath"
         :alt="altmsg"
         :title="titlemsg">
@@ -12,36 +12,20 @@ const ratio = require('aspect-ratio')
 
 export default {
   props: {
-    imgPath: String
+    imgPath: String,
+    vertical: Boolean
   },
 
   data() {
     return {
       altmsg: '',
       titlemsg: '',
-      image: {
-        ratio: '1:2',
-        vertical: false,
-      },
       styles: {
         pictureClass: 'picture',
         horizontalClass: 'picture-hrz',
         verticalClass: 'picture-vrt'
       }
     }
-  },
-
-  methods: {
-    setAspectRatio() {
-      const dimensions = this.image.ratio.split(":");
-      if( dimensions[0] > dimensions[1] ) {
-        this.image.vertical = true;
-      }
-    }
-  },
-
-  beforeMount() {
-    this.setAspectRatio();
   }
 }
 </script>
