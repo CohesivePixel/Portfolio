@@ -41,7 +41,7 @@ export default {
   data () {
     return {
       total: 30,
-      active: 10,
+      active: 5,
       colour: {
         vibrant: '',
         lightVibrant: '',

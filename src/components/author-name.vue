@@ -29,7 +29,7 @@ export default {
 
 <style lang="scss">
   .author-title {
-    padding-top: 7.5vh;
+    padding-top: 4.5vh;
     padding-left: 10vw;
     margin: 0;
 
