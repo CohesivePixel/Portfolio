@@ -35,7 +35,7 @@ export default {
 
     .lastname {
       font-family: 'Avenir-Black';
-      font-size: 2.8rem;
+      font-size: 2.8vw;
       float: left;
     }
 
