@@ -52,8 +52,8 @@ export default {
       vibrant.from(this.image).getPalette()
         .then((palette) => {
           this.colour.vibrant = '#' + this.getHex(palette.Vibrant);
-          this.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#eee';
-          this.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#eee';
+          this.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#fff';
+          this.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#fff';
         });
       return
     },

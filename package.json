@@ -10,6 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "aspect-ratio": "^2.0.2",
     "rgb-hex": "^2.1.0",
     "svg.js": "^2.6.5",
     "vue": "^2.5.11"
