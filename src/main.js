@@ -5,6 +5,8 @@ import App from './App.vue'
 
 Vue.use(VueAxios, axios);
 
+Event = new Vue();
+
 require('./assets/scss/main.scss');
 
 export let common = {

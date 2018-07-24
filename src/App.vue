@@ -25,13 +25,6 @@ const rgbHex = require('rgb-hex');
 
 export default {
   name: 'app',
-  components: {
-      ColouredBackplate,
-      AuthorName,
-      ProgressBar,
-      WorkSoftbox,
-      TextBlock
-  },
 
   data () {
     return {
@@ -40,6 +33,18 @@ export default {
       image: '',
       scrollDirection: ''
     }
+  },
+
+  created() {
+    this.defineColours()
+  },
+
+  components: {
+      ColouredBackplate,
+      AuthorName,
+      ProgressBar,
+      WorkSoftbox,
+      TextBlock
   },
 
   computed: {
@@ -57,17 +62,12 @@ export default {
   methods: {
     slideNew: _.throttle(function(e) {
       if (this.shared.active <= this.complete) {
-        if(e.deltaY > 0) {
-          this.shared.active += 1
-        }
-        if(e.deltaY < 0) {
-          this.shared.active -= 1
-        }
+        if(e.deltaY > 0) this.shared.active += 1
+        if(e.deltaY < 0) this.shared.active -= 1
+
+        Event.$emit('swipe');
       }
     }, 2000),
-    newComponent(e) {
-
-    },
     defineColours() {
       this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image').then(response => {
         this.image = require('./assets/images/' + response.data[0])
@@ -85,10 +85,6 @@ export default {
       const b = rgb._rgb[2];
       return rgbHex(r, g, b);
     }
-  },
-
-  beforeMount() {
-    this.defineColours();
   }
 }
 </script>

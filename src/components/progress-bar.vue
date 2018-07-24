@@ -20,6 +20,11 @@ export default {
     }
   },
 
+  created() {
+    this.calculatePercentage();
+    this.setGradient();
+  },
+
   computed: {
     colour() {
       return this.shared.colour.lightVibrant;
@@ -45,11 +50,6 @@ export default {
     setGradient() {
       this.progressGradient.background = 'linear-gradient(to right,' + this.shared.colour.lightVibrant + ',' + this.shared.colour.lightMuted + ')';
     }
-  },
-
-  beforeMount() {
-    this.calculatePercentage();
-    this.setGradient();
   }
 }
 </script>

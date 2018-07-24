@@ -26,16 +26,12 @@ export default {
     }
   },
 
-  computed: {
-    active() {
-      return this.shared.active;
-    }
+  beforeUpdate() {
+    this.getImage();
   },
 
-  watch: {
-    active() {
-      this.getImage();
-    }
+  created() {
+    this.getImage();
   },
 
   methods: {
@@ -51,10 +47,6 @@ export default {
         });
       return;
     }
-  },
-
-  beforeMount() {
-    this.getImage();
   }
 }
 </script>

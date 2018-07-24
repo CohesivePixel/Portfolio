@@ -19,17 +19,21 @@ export default {
     }
   },
 
-  computed: {
-    colourVibrant() {
-      return this.shared.colour.vibrant;
-    }
-  },
-
-  watch: {
-    colourVibrant() {
-      this.backPlateStyle.fill = this.shared.colour.vibrant;
-    }
+  beforeUpdate() {
+    this.backPlateStyle.fill = this.shared.colour.vibrant;
   }
+
+  // computed: {
+  //   colourVibrant() {
+  //     return this.shared.colour.vibrant;
+  //   }
+  // },
+  //
+  // watch: {
+  //   colourVibrant() {
+  //     this.backPlateStyle.fill = this.shared.colour.vibrant;
+  //   }
+  // }
 }
 </script>
 

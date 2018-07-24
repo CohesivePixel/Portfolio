@@ -18,17 +18,15 @@ export default {
     }
   },
 
-  computed: {
-    active() {
-      return this.shared.active;
-    }
+  created() {
+    this.setBlockHeight();
+    this.getTitle();
+    this.getDesc();
   },
 
-  watch: {
-    active() {
-      this.getTitle();
-      this.getDesc();
-    }
+  beforeUpdate() {
+    this.getTitle();
+    this.getDesc();
   },
 
   methods: {
@@ -49,9 +47,7 @@ export default {
   },
 
   mounted() {
-    this.setBlockHeight();
-    this.getTitle();
-    this.getDesc();
+
   }
 }
 </script>
