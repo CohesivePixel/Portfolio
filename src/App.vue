@@ -1,5 +1,5 @@
 <template>
-  <div id="app" @wheel="slideNew()">
+  <div id="app" @wheel="slideNew($event)">
     <progress-bar :range="complete"></progress-bar>
     <author-name></author-name>
     <div class="content-container">
@@ -36,8 +36,9 @@ export default {
   data () {
     return {
       shared: common,
-      complete: 2,
-      image: ''
+      complete: 3,
+      image: '',
+      scrollDirection: ''
     }
   },
 
@@ -54,27 +55,29 @@ export default {
   },
 
   methods: {
-    slideNew: _.throttle(function() {
-      this.newComponent();
-    }, 2000),
-    newComponent() {
-      this.shared.active += 1;
-      if (this.shared.active > this.complete) {
-        this.shared.active = 1;
+    slideNew: _.throttle(function(e) {
+      if (this.shared.active <= this.complete) {
+        if(e.deltaY > 0) {
+          this.shared.active += 1
+        }
+        if(e.deltaY < 0) {
+          this.shared.active -= 1
+        }
       }
+    }, 2000),
+    newComponent(e) {
+
     },
     defineColours() {
       this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image').then(response => {
-          this.image = require('./assets/images/' + response.data[0]);
-
-          vibrant.from(this.image).getPalette()
-            .then((palette) => {
-              this.shared.colour.vibrant = '#' + this.getHex(palette.Vibrant);
-              this.shared.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#fff';
-              this.shared.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#fff';
-            });
-
-      });
+        this.image = require('./assets/images/' + response.data[0])
+        vibrant.from(this.image).getPalette()
+          .then((palette) => {
+            this.shared.colour.vibrant = '#' + this.getHex(palette.Vibrant);
+            this.shared.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#fff'
+            this.shared.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#fff'
+          })
+      })
     },
     getHex(rgb) {
       const r = rgb._rgb[0];
