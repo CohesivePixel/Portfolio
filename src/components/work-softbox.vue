@@ -8,8 +8,6 @@
 </template>
 
 <script>
-const ratio = require('aspect-ratio')
-
 export default {
   props: {
     imgPath: String,
