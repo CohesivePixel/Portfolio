@@ -27,7 +27,6 @@ export default {
   watch: {
     colour() {
       this.nameStyle.color = this.shared.colour.vibrant;
-      console.log('Shared Object: ' + this.shared);
     }
   }
 }

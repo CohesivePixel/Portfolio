@@ -39,6 +39,19 @@ export default {
     }
   },
 
+  computed: {
+    active() {
+      return this.shared.active;
+    }
+  },
+
+  watch: {
+    active() {
+      this.getImage();
+      console.log('innit');
+    }
+  },
+
   methods: {
     getImage() {
       this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image')
