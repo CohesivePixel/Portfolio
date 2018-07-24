@@ -1,20 +1,17 @@
 <template>
   <div id="app">
-    <progress-bar :maximum="total"
-                  :progress="active"
-                  :colourStart="colour.lightVibrant"
-                  :colourEnd="colour.lightMuted">
-    </progress-bar>
-    <author-name :colour="colour.vibrant"></author-name>
+    <progress-bar :range="complete"></progress-bar>
+    <!-- <author-name :colour="colour.vibrant"></author-name>
     <div class="content-container">
       <work-softbox :imgPath="image" :vertical="false"></work-softbox>
       <text-block></text-block>
     </div>
-    <coloured-backplate :colour="colour.vibrant"></coloured-backplate>
+    <coloured-backplate :colour="colour.vibrant"></coloured-backplate> -->
   </div>
 </template>
 
 <script>
+import {common} from './main.js';
 import ColouredBackplate from './components/coloured-backplate.vue';
 import AuthorName from './components/author-name.vue';
 import ProgressBar from './components/progress-bar.vue';
@@ -23,7 +20,6 @@ import TextBlock from './components/text-block.vue';
 
 const vibrant = require('node-vibrant');
 const rgbHex = require('rgb-hex');
-
 
 export default {
   name: 'app',
@@ -37,24 +33,20 @@ export default {
 
   data () {
     return {
-      active: 1,
-      total: 30,
-      image: require('./assets/images/BaseLine Desktop.jpg'),
-      colour: {
-        vibrant: '',
-        lightVibrant: '',
-        lightMuted: ''
-      }
+      shared: common,
+      complete: 30,
+      imagePath: './assets/images/BaseLine Desktop.jpg'
     }
   },
 
   methods: {
     extractColours() {
-      vibrant.from(this.image).getPalette()
+      const image = require('./assets/images/BaseLine Desktop.jpg')
+      vibrant.from(image).getPalette()
         .then((palette) => {
-          this.colour.vibrant = '#' + this.getHex(palette.Vibrant);
-          this.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#fff';
-          this.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#fff';
+          this.shared.colour.vibrant = '#' + this.getHex(palette.Vibrant);
+          this.shared.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#fff';
+          this.shared.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#fff';
         });
       return
     },

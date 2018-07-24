@@ -7,10 +7,7 @@
 <script>
 export default {
   props: {
-    maximum: Number,
-    progress: Number,
-    colourStart: String,
-    colourEnd: String
+    range: Number
   },
 
   data() {

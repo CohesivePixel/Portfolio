@@ -7,6 +7,14 @@ Vue.use(VueAxios, axios);
 
 require('./assets/scss/main.scss');
 
+export let common = {
+    active: 1,
+    colour: {
+      vibrant: '',
+      lightVibrant: '',
+      lightMuted: ''
+    }
+};
 
 new Vue({
   el: '#app',
