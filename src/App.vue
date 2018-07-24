@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <progress-bar :range="complete"></progress-bar>
-    <!-- <author-name :colour="colour.vibrant"></author-name>
+    <author-name></author-name>
     <div class="content-container">
       <work-softbox :imgPath="image" :vertical="false"></work-softbox>
-      <text-block></text-block>
+      <!-- <text-block></text-block> -->
     </div>
-    <coloured-backplate :colour="colour.vibrant"></coloured-backplate> -->
+    <coloured-backplate></coloured-backplate>
   </div>
 </template>
 
@@ -35,13 +35,21 @@ export default {
     return {
       shared: common,
       complete: 30,
-      imagePath: './assets/images/BaseLine Desktop.jpg'
+      imageName: ''
     }
   },
 
   methods: {
+    getImage() {
+      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image')
+        .then((response) => {
+          this.imageName = response.data[0];
+          this.extractColours();
+        });
+        return
+    },
     extractColours() {
-      const image = require('./assets/images/BaseLine Desktop.jpg')
+      const image = require('./assets/images/' + this.imageName);
       vibrant.from(image).getPalette()
         .then((palette) => {
           this.shared.colour.vibrant = '#' + this.getHex(palette.Vibrant);
@@ -50,7 +58,6 @@ export default {
         });
       return
     },
-
     getHex(rgb) {
       const r = rgb._rgb[0];
       const g = rgb._rgb[1];
@@ -61,7 +68,7 @@ export default {
   },
 
   beforeMount() {
-    this.extractColours();
+    this.getImage();
   }
 }
 </script>
