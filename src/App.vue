@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @wheel="slideNew()">
     <progress-bar :range="complete"></progress-bar>
     <author-name></author-name>
     <div class="content-container">
@@ -12,6 +12,8 @@
 
 <script>
 import {common} from './main.js';
+import _ from 'lodash';
+
 import ColouredBackplate from './components/coloured-backplate.vue';
 import AuthorName from './components/author-name.vue';
 import ProgressBar from './components/progress-bar.vue';
@@ -34,7 +36,7 @@ export default {
   data () {
     return {
       shared: common,
-      complete: 30,
+      complete: 2,
       image: ''
     }
   },
@@ -52,24 +54,32 @@ export default {
   },
 
   methods: {
+    slideNew: _.throttle(function() {
+      this.newComponent();
+    }, 2000),
+    newComponent() {
+      this.shared.active += 1;
+      if (this.shared.active > this.complete) {
+        this.shared.active = 1;
+      }
+    },
     defineColours() {
       this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image').then(response => {
           this.image = require('./assets/images/' + response.data[0]);
+
           vibrant.from(this.image).getPalette()
             .then((palette) => {
               this.shared.colour.vibrant = '#' + this.getHex(palette.Vibrant);
               this.shared.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#fff';
               this.shared.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#fff';
             });
-            
+
       });
-      return
     },
     getHex(rgb) {
       const r = rgb._rgb[0];
       const g = rgb._rgb[1];
       const b = rgb._rgb[2];
-
       return rgbHex(r, g, b);
     }
   },
@@ -81,6 +91,9 @@ export default {
 </script>
 
 <style lang="scss">
+  #app {
+    height: 100%;
+  }
   .content-container {
     position: absolute;
     width: 100%;

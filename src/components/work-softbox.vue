@@ -62,14 +62,15 @@ export default {
 <style lang="scss">
   .picture {
     box-shadow: 0 5px 45px rgba(69, 69, 69, 0.5);
-    margin-left: 10vw;
   }
 
   .picture-hrz {
     width: 45vw;
+    margin-left: 10vw;
   }
 
   .picture-vrt {
     height: 60vh;
+    margin-left: 20vw;
   }
 </style>
