@@ -7,6 +7,7 @@ Vue.use(VueAxios, axios);
 
 require('./assets/scss/main.scss');
 
+
 new Vue({
   el: '#app',
   render: h => h(App)

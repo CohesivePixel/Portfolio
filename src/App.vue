@@ -24,6 +24,7 @@ import TextBlock from './components/text-block.vue';
 const vibrant = require('node-vibrant');
 const rgbHex = require('rgb-hex');
 
+
 export default {
   name: 'app',
   components: {
