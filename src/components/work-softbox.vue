@@ -1,6 +1,7 @@
 <template lang="html">
   <img  id="pic"
         ref="picture"
+        v-if="this.image"
         :class="[this.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
         :src="image"
         :alt="alt"

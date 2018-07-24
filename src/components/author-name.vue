@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="author-title" v-if="colour">
+  <div class="author-title" v-if="shared.colour.vibrant">
     <h1 class="firstname" :style="nameStyle">BEN</h1>
     <h1 class="lastname"> | EY</h1>
   </div>
@@ -13,22 +13,26 @@ export default {
     return {
       shared: common,
       nameStyle: {
-        color: 'white'
+        color: ''
       }
     }
   },
 
-  computed: {
-    colour() {
-      return this.shared.colour.vibrant;
-    }
-  },
-
-  watch: {
-    colour() {
-      this.nameStyle.color = this.shared.colour.vibrant;
-    }
+  beforeUpdate() {
+    this.nameStyle.color = this.shared.colour.vibrant;
   }
+
+  // computed: {
+  //   colour() {
+  //     return this.shared.colour.vibrant;
+  //   }
+  // },
+  //
+  // watch: {
+  //   colour() {
+  //     this.nameStyle.color = this.shared.colour.vibrant;
+  //   }
+  // }
 }
 </script>
 

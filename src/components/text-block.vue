@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="text-block">
+  <div class="text-block" v-if="this.blockText">
     <h1 class="work-title">{{ blockTitle }}</h1>
     <object class="divider" width="35%" height="5px"></object>
     <p class="work-text">{{ blockText }}</p>
