@@ -35,7 +35,7 @@ export default {
     return {
       shared: common,
       complete: 30,
-      imageName: ''
+      image: ''
     }
   },
 
@@ -47,27 +47,22 @@ export default {
 
   watch: {
     active() {
-      this.getImage();
+      this.defineColours();
     }
   },
 
   methods: {
-    getImage() {
-      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image')
-        .then((response) => {
-          this.imageName = response.data[0];
-          this.extractColours();
-        });
-      return
-    },
-    extractColours() {
-      const image = require('./assets/images/' + this.imageName);
-      vibrant.from(image).getPalette()
-        .then((palette) => {
-          this.shared.colour.vibrant = '#' + this.getHex(palette.Vibrant);
-          this.shared.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#fff';
-          this.shared.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#fff';
-        });
+    defineColours() {
+      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image').then(response => {
+          this.image = require('./assets/images/' + response.data[0]);
+          vibrant.from(this.image).getPalette()
+            .then((palette) => {
+              this.shared.colour.vibrant = '#' + this.getHex(palette.Vibrant);
+              this.shared.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#fff';
+              this.shared.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#fff';
+            });
+            
+      });
       return
     },
     getHex(rgb) {
@@ -80,7 +75,7 @@ export default {
   },
 
   beforeMount() {
-    this.getImage();
+    this.defineColours();
   }
 }
 </script>

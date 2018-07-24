@@ -1,7 +1,7 @@
 <template lang="html">
   <img  id="pic"
         ref="picture"
-        :class="[this.shared.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
+        :class="[this.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
         :src="image"
         :alt="alt"
         :title="title">
@@ -17,6 +17,7 @@ export default {
       image: '',
       alt: '',
       title: '',
+      vertical: 0,
       styles: {
         pictureClass: 'picture',
         horizontalClass: 'picture-hrz',
@@ -46,7 +47,7 @@ export default {
 
       this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/vertical')
         .then((response) => {
-          this.shared.vertical = response.data[0];
+          this.vertical = response.data[0];
         });
       return;
     }
