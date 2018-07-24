@@ -9,6 +9,7 @@ require('./assets/scss/main.scss');
 
 export let common = {
     active: 1,
+    vertical: 0,
     colour: {
       vibrant: '',
       lightVibrant: '',

@@ -3,7 +3,7 @@
     <progress-bar :range="complete"></progress-bar>
     <author-name></author-name>
     <div class="content-container">
-      <work-softbox :imgPath="image" :vertical="false"></work-softbox>
+      <work-softbox></work-softbox>
       <!-- <text-block></text-block> -->
     </div>
     <coloured-backplate></coloured-backplate>
@@ -48,7 +48,6 @@ export default {
   watch: {
     active() {
       this.getImage();
-      console.log('innit');
     }
   },
 
@@ -59,7 +58,7 @@ export default {
           this.imageName = response.data[0];
           this.extractColours();
         });
-        return
+      return
     },
     extractColours() {
       const image = require('./assets/images/' + this.imageName);

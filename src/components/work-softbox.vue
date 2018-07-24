@@ -1,29 +1,54 @@
 <template lang="html">
   <img  id="pic"
         ref="picture"
-        :class="[this.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
-        :src="imgPath"
-        :alt="altmsg"
-        :title="titlemsg">
+        :class="[this.shared.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
+        :src="image"
+        :alt="alt"
+        :title="title">
 </template>
 
 <script>
-export default {
-  props: {
-    imgPath: String,
-    vertical: Boolean
-  },
+import {common} from '../main.js';
 
+export default {
   data() {
     return {
-      altmsg: '',
-      titlemsg: '',
+      shared: common,
+      image: '',
+      alt: '',
+      title: '',
       styles: {
         pictureClass: 'picture',
         horizontalClass: 'picture-hrz',
         verticalClass: 'picture-vrt'
       }
     }
+  },
+
+  computed: {
+    active() {
+      return this.shared.active;
+    }
+  },
+
+  watch: {
+    active() {
+      this.getImage();
+    }
+  },
+
+  methods: {
+    getImage() {
+      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image')
+        .then((response) => {
+          this.image = require('../assets/images/' + response.data[0]);
+        });
+      return;
+    }
+  },
+
+  beforeMount() {
+    this.getImage();
   }
 }
 </script>
