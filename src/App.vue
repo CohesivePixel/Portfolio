@@ -4,7 +4,7 @@
     <author-name></author-name>
     <div class="content-container">
       <work-softbox></work-softbox>
-      <!-- <text-block></text-block> -->
+      <text-block></text-block>
     </div>
     <coloured-backplate></coloured-backplate>
   </div>
