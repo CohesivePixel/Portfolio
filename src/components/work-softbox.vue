@@ -43,6 +43,11 @@ export default {
         .then((response) => {
           this.image = require('../assets/images/' + response.data[0]);
         });
+
+      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/vertical')
+        .then((response) => {
+          this.shared.vertical = response.data[0];
+        });
       return;
     }
   },
