@@ -7,21 +7,51 @@
 </template>
 
 <script>
+import {common} from '../main.js';
+
 export default {
   data() {
     return {
-      blockTitle: 'JAARTRUI',
-      blockText: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodoligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Intege tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.'
+      shared: common,
+      blockTitle: '',
+      blockText: ''
     }
   },
+
+  computed: {
+    active() {
+      return this.shared.active;
+    }
+  },
+
+  watch: {
+    active() {
+      this.getTitle();
+      this.getDesc();
+    }
+  },
+
   methods: {
     setBlockHeight() {
       const imgFrame = document.getElementById('pic');
       return;
+    },
+    getTitle() {
+        this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/title')
+            .then(response => this.blockTitle = response.data[0])
+        return
+    },
+    getDesc() {
+      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/description')
+          .then(response => this.blockText = response.data[0])
+      return
     }
   },
+
   mounted() {
     this.setBlockHeight();
+    this.getTitle();
+    this.getDesc();
   }
 }
 </script>

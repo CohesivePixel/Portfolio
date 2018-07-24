@@ -1,28 +1,22 @@
 <template lang="html">
   <img  id="pic"
         ref="picture"
-        :class="[image.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
-        :src="imgPath"
-        :alt="altmsg"
-        :title="titlemsg">
+        :class="[this.shared.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
+        :src="image"
+        :alt="alt"
+        :title="title">
 </template>
 
 <script>
-const ratio = require('aspect-ratio')
+import {common} from '../main.js';
 
 export default {
-  props: {
-    imgPath: String
-  },
-
   data() {
     return {
-      altmsg: '',
-      titlemsg: '',
-      image: {
-        ratio: '1:2',
-        vertical: false,
-      },
+      shared: common,
+      image: '',
+      alt: '',
+      title: '',
       styles: {
         pictureClass: 'picture',
         horizontalClass: 'picture-hrz',
@@ -31,17 +25,30 @@ export default {
     }
   },
 
+  computed: {
+    active() {
+      return this.shared.active;
+    }
+  },
+
+  watch: {
+    active() {
+      this.getImage();
+    }
+  },
+
   methods: {
-    setAspectRatio() {
-      const dimensions = this.image.ratio.split(":");
-      if( dimensions[0] > dimensions[1] ) {
-        this.image.vertical = true;
-      }
+    getImage() {
+      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image')
+        .then((response) => {
+          this.image = require('../assets/images/' + response.data[0]);
+        });
+      return;
     }
   },
 
   beforeMount() {
-    this.setAspectRatio();
+    this.getImage();
   }
 }
 </script>

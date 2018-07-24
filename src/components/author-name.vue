@@ -1,27 +1,32 @@
 <template lang="html">
-  <div class="author-title">
+  <div class="author-title" v-if="colour">
     <h1 class="firstname" :style="nameStyle">BEN</h1>
     <h1 class="lastname"> | EY</h1>
   </div>
 </template>
 
 <script>
-export default {
-  props: {
-    colour: String
-  },
+import {common} from '../main.js';
 
+export default {
   data() {
     return {
+      shared: common,
       nameStyle: {
-        color: 'black'
+        color: 'white'
       }
+    }
+  },
+
+  computed: {
+    colour() {
+      return this.shared.colour.vibrant;
     }
   },
 
   watch: {
     colour() {
-      this.nameStyle.color = this.colour;
+      this.nameStyle.color = this.shared.colour.vibrant;
     }
   }
 }
@@ -35,7 +40,7 @@ export default {
 
     .lastname {
       font-family: 'Avenir-Black';
-      font-size: 2.8rem;
+      font-size: 2.8vw;
       float: left;
     }
 

@@ -1,37 +1,49 @@
 <template lang="html">
-  <div class="progress" :style="barStyle"></div>
+  <div class="progress-container" :style="progressGradient" v-if="colour">
+    <div class="progress" :style="progressMask"></div>
+  </div>
 </template>
 
 <script>
+import {common} from '../main.js';
+
 export default {
   props: {
-    maximum: Number,
-    progress: Number,
-    colourStart: String,
-    colourEnd: String
+    range: Number
   },
 
   data() {
     return {
-      barStyle: {
-        width: '',
-        background: ''
-      }
+      shared: common,
+      progressGradient: { background: '' },
+      progressMask: { width: '' }
+    }
+  },
+
+  computed: {
+    colour() {
+      return this.shared.colour.lightVibrant;
+    },
+    active() {
+      return this.shared.active;
     }
   },
 
   watch: {
-    colourEnd() {
-      this.setGradient()
+    colour() {
+      this.setGradient();
+    },
+    active() {
+      this.calculatePercentage();
     }
   },
 
   methods: {
     calculatePercentage() {
-      this.barStyle.width =  Math.round((this.progress / this.maximum) * 100).toString() + '%';
+      this.progressMask.width = (100 - Math.round((this.shared.active / this.range) * 100)).toString() + '%';
     },
     setGradient() {
-      this.barStyle.background = 'linear-gradient(to right,' + this.colourStart + ',' + this.colourEnd + ')';
+      this.progressGradient.background = 'linear-gradient(to right,' + this.shared.colour.lightVibrant + ',' + this.shared.colour.lightMuted + ')';
     }
   },
 
@@ -43,10 +55,14 @@ export default {
 </script>
 
 <style lang="scss">
+  .progress-container {
+    width: 100%;
+    height: 0.5vh;
+
     .progress {
-      width: 100%;
-      height: 0.5vh;
-      background-color: white;
-      float: left;
+      height: 100%;
+      background-color: #eee;
+      float: right;
+    }
   }
 </style>

@@ -1,28 +1,33 @@
 <template lang="html">
   <div class="backplate">
     <svg width="100%" viewBox="0 0 100 100" preserveAspectRatio="xMaxYMax">
-      <polygon points="100,100 100,0 65,0 25,100" v-if="colour" :style="backPlateStyle" />
+      <polygon points="100,100 100,0 65,0 25,100" v-if="shared.colour.vibrant" :style="backPlateStyle" />
     </svg>
   </div>
 </template>
 
 <script>
-export default {
-  props: {
-    colour: String
-  },
+import {common} from '../main.js';
 
+export default {
   data() {
     return {
+      shared: common,
       backPlateStyle: {
-        fill: this.colour
+        fill: ''
       }
     }
   },
 
+  computed: {
+    colourVibrant() {
+      return this.shared.colour.vibrant;
+    }
+  },
+
   watch: {
-    colour() {
-      this.backPlateStyle.fill = this.colour;
+    colourVibrant() {
+      this.backPlateStyle.fill = this.shared.colour.vibrant;
     }
   }
 }

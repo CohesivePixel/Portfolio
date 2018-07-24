@@ -1,20 +1,17 @@
 <template>
   <div id="app">
-    <progress-bar :maximum="total"
-                  :progress="active"
-                  :colourStart="colour.lightVibrant"
-                  :colourEnd="colour.lightMuted">
-    </progress-bar>
-    <author-name :colour="colour.vibrant"></author-name>
+    <progress-bar :range="complete"></progress-bar>
+    <author-name></author-name>
     <div class="content-container">
-      <work-softbox :imgPath="image"></work-softbox>
+      <work-softbox></work-softbox>
       <text-block></text-block>
     </div>
-    <coloured-backplate :colour="colour.vibrant"></coloured-backplate>
+    <coloured-backplate></coloured-backplate>
   </div>
 </template>
 
 <script>
+import {common} from './main.js';
 import ColouredBackplate from './components/coloured-backplate.vue';
 import AuthorName from './components/author-name.vue';
 import ProgressBar from './components/progress-bar.vue';
@@ -36,28 +33,43 @@ export default {
 
   data () {
     return {
-      total: 30,
-      active: 15,
-      image: require('./assets/images/BaseLine Desktop.jpg'),
-      colour: {
-        vibrant: '',
-        lightVibrant: '',
-        lightMuted: ''
-      }
+      shared: common,
+      complete: 30,
+      imageName: ''
+    }
+  },
+
+  computed: {
+    active() {
+      return this.shared.active;
+    }
+  },
+
+  watch: {
+    active() {
+      this.getImage();
     }
   },
 
   methods: {
-    extractColours() {
-      vibrant.from(this.image).getPalette()
-        .then((palette) => {
-          this.colour.vibrant = '#' + this.getHex(palette.Vibrant);
-          this.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#fff';
-          this.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#fff';
+    getImage() {
+      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image')
+        .then((response) => {
+          this.imageName = response.data[0];
+          this.extractColours();
         });
       return
     },
-
+    extractColours() {
+      const image = require('./assets/images/' + this.imageName);
+      vibrant.from(image).getPalette()
+        .then((palette) => {
+          this.shared.colour.vibrant = '#' + this.getHex(palette.Vibrant);
+          this.shared.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#fff';
+          this.shared.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#fff';
+        });
+      return
+    },
     getHex(rgb) {
       const r = rgb._rgb[0];
       const g = rgb._rgb[1];
@@ -68,7 +80,7 @@ export default {
   },
 
   beforeMount() {
-    this.extractColours();
+    this.getImage();
   }
 }
 </script>
