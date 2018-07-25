@@ -24,11 +24,6 @@ export default {
     this.getDesc();
   },
 
-  beforeUpdate() {
-    this.getTitle();
-    this.getDesc();
-  },
-
   methods: {
     setBlockHeight() {
       const imgFrame = document.getElementById('pic');

@@ -61,12 +61,8 @@ export default {
 
   methods: {
     slideNew: _.throttle(function(e) {
-      if (this.shared.active <= this.complete) {
-        if(e.deltaY > 0) this.shared.active += 1
-        if(e.deltaY < 0) this.shared.active -= 1
-
-        Event.$emit('swipe');
-      }
+      if(e.deltaY < 0 && this.shared.active > 1) this.shared.active -= 1
+      if(e.deltaY > 0 && this.shared.active <= this.complete) this.shared.active += 1 
     }, 2000),
     defineColours() {
       this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image').then(response => {
