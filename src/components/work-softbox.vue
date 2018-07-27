@@ -80,6 +80,7 @@ export default {
 
   .picture-slide-enter-active {
     transition: all 0.8s ease;
+    transition-delay: .7s;
   }
 
   .picture-slide-enter {
