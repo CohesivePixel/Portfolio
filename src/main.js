@@ -1,3 +1,8 @@
+// TODO: Social Media Icons
+// TODO: Landing page
+// TODO: Adding Content page
+// TODO: Mobile Version
+
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
