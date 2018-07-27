@@ -1,12 +1,14 @@
 <template lang="html">
-  <img  id="pic"
-        ref="picture"
-        :class="[this.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
-        :src="image"
-        :alt="alt"
-        :title="title">
+  <transition name="picture-slide" v-on:after-leave="changeState">
+    <img  id="pic"
+          ref="picture"
+          v-if="showPicture"
+          :class="[this.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
+          :src="image"
+          :alt="alt"
+          :title="title">
+  </transition>
 </template>
-
 <script>
 import {common} from '../main.js';
 
@@ -18,6 +20,7 @@ export default {
       alt: '',
       title: '',
       vertical: 0,
+      showPicture: 1,
       styles: {
         pictureClass: 'picture',
         horizontalClass: 'picture-hrz',
@@ -32,7 +35,7 @@ export default {
 
   created() {
     this.getImage();
-    Event.$on('swipe', () => this.getImage());
+    Event.$on('swipe', () => this.slideOut());
   },
 
   methods: {
@@ -43,6 +46,13 @@ export default {
           this.vertical = response.data[1];
         });
       return;
+    },
+    slideOut() {
+      this.showPicture = 0;
+    },
+    changeState(el) {
+      this.getImage();
+      this.showPicture = 1;
     }
   }
 }
@@ -61,5 +71,18 @@ export default {
   .picture-vrt {
     height: 60vh;
     margin-left: 20vw;
+  }
+
+  .picture-slide-leave-active {
+    transition: all 1.5s ease;
+    transform: translateX(-200%);
+  }
+
+  .picture-slide-enter-active {
+    transition: all 0.8s ease;
+  }
+
+  .picture-slide-enter {
+    transform: translateX(-200%);
   }
 </style>
