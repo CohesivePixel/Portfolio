@@ -1,8 +1,16 @@
 <template lang="html">
-  <div class="text-block" v-if="this.blockText">
-    <h1 class="work-title">{{ blockTitle }}</h1>
-    <object class="divider" width="35%" height="5px"></object>
-    <p class="work-text">{{ blockText }}</p>
+  <div class="elemental-cock">
+    <div class="text-block" v-if="this.blockText">
+      <transition name="title-slide">
+        <h1 class="work-title" v-if="showTitle">{{ blockTitle }}</h1>
+      </transition>
+      <transition name="divider-slide">
+        <object class="divider" width="35%" height="5px" v-if="showDivider"></object>
+      </transition>
+      <transition name="description-slide" v-on:after-leave="changeState">
+        <p class="work-text" v-if="showDescription">{{ blockText }}</p>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -14,7 +22,10 @@ export default {
     return {
       shared: common,
       blockTitle: '',
-      blockText: ''
+      blockText: '',
+      showTitle: 1,
+      showDivider: 1,
+      showDescription: 1
     }
   },
 
@@ -24,8 +35,7 @@ export default {
     this.getDesc();
 
     Event.$on('swipe', () => {
-      this.getTitle();
-      this.getDesc();
+      this.slideOut()
     })
   },
 
@@ -43,17 +53,27 @@ export default {
       this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/description')
           .then(response => this.blockText = response.data[0])
       return
+    },
+    slideOut() {
+      this.showTitle = 0;
+      this.showDivider = 0;
+      this.showDescription = 0;
+    },
+    changeState() {
+      this.getTitle();
+      this.getDesc();
+      this.showTitle = 1;
+      this.showDivider = 1;
+      this.showDescription = 1;
     }
-  },
-
-  mounted() {
-
   }
 }
 </script>
 
 <style lang="scss">
   $divider-distance: 2vh;
+  $slide-distance: 200%;
+  $slide-out-duration: .9s;
 
   .text-block {
     position: absolute;
@@ -91,5 +111,52 @@ export default {
     float: right;
     display: block;
     background-color: white;
+  }
+
+  /* Title slide-in animation */
+  .title-slide-leave-active {
+    transition: all $slide-out-duration ease;
+    transition-delay: .3s;
+    transform: translateX($slide-distance);
+  }
+
+  .title-slide-enter-active {
+    transition: all .5s ease;
+  }
+
+  .title-slide-enter {
+    transform: translateX($slide-distance);
+  }
+
+  /* Divider slide-in animation */
+  .divider-slide-leave-active {
+    transition: all $slide-out-duration ease;
+    transition-delay: .1s;
+    transform: translateX($slide-distance);
+  }
+
+  .divider-slide-enter-active {
+    transition: all .5s ease;
+    transition-delay: .8s;
+  }
+
+  .divider-slide-enter {
+    transform: translateX($slide-distance);
+  }
+
+  /* Description slide-in animation */
+  .description-slide-leave-active {
+    transition: all $slide-out-duration ease;
+    transition-delay: .5s;
+    transform: translateX($slide-distance);
+  }
+
+  .description-slide-enter-active {
+    transition: all .5s ease;
+    transition-delay: .4s;
+  }
+
+  .description-slide-enter {
+    transform: translateX($slide-distance);
   }
 </style>

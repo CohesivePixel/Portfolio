@@ -29,7 +29,7 @@ export default {
   data () {
     return {
       shared: common,
-      complete: 2,
+      complete: 5,
       image: ''
     }
   },
@@ -60,12 +60,20 @@ export default {
 
   methods: {
     slideNew: _.throttle(function(e) {
-      if(e.deltaY < 0 && this.shared.active > 1) this.shared.active -= 1
-      if(e.deltaY > 0 && this.shared.active < this.complete) this.shared.active += 1
+      if(e.deltaY < 0 && this.shared.active > 1) {
+        this.shared.active -= 1
+        Event.$emit('swipe');
+      }
 
-      Event.$emit('swipe');
+      if(e.deltaY > 0 && this.shared.active < this.complete) {
+        this.shared.active += 1
+        Event.$emit('swipe');
+      }
 
-    }, 2000),
+    }, 2000, {
+      'leading': true,
+      'trailing': false
+    }),
     defineColours() {
       this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image').then(response => {
         this.image = require('./assets/images/' + response.data[0])

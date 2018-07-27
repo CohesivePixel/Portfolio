@@ -15,8 +15,14 @@ export default {
   data() {
     return {
       shared: common,
-      progressGradient: { background: '' },
-      progressMask: { width: '' }
+      progressGradient: {
+        background: '',
+        transition: 'background 1.35s ease'
+      },
+      progressMask: {
+        width: '',
+        transition: 'width 1.35s ease'
+      }
     }
   },
 

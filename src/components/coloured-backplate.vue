@@ -14,7 +14,8 @@ export default {
     return {
       shared: common,
       backPlateStyle: {
-        fill: ''
+        fill: '',
+        transition: 'fill .85s ease'
       }
     }
   },
