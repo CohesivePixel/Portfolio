@@ -29,7 +29,7 @@ export default {
   data () {
     return {
       shared: common,
-      complete: 2,
+      complete: 5,
       image: ''
     }
   },
@@ -59,13 +59,18 @@ export default {
   },
 
   methods: {
-    slideNew: _.debounce(function(e) {
-      if(e.deltaY < 0 && this.shared.active > 1) this.shared.active -= 1
-      if(e.deltaY > 0 && this.shared.active < this.complete) this.shared.active += 1
+    slideNew: _.throttle(function(e) {
+      if(e.deltaY < 0 && this.shared.active > 1) {
+        this.shared.active -= 1
+        Event.$emit('swipe');
+      }
 
-      Event.$emit('swipe');
+      if(e.deltaY > 0 && this.shared.active < this.complete) {
+        this.shared.active += 1
+        Event.$emit('swipe');
+      }
 
-    }, 1000, {
+    }, 2000, {
       'leading': true,
       'trailing': false
     }),

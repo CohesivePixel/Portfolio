@@ -13,7 +13,8 @@ export default {
     return {
       shared: common,
       nameStyle: {
-        color: ''
+        color: '',
+        transition: 'color .85s ease'
       }
     }
   },
@@ -21,18 +22,6 @@ export default {
   beforeUpdate() {
     this.nameStyle.color = this.shared.colour.vibrant;
   }
-
-  // computed: {
-  //   colour() {
-  //     return this.shared.colour.vibrant;
-  //   }
-  // },
-  //
-  // watch: {
-  //   colour() {
-  //     this.nameStyle.color = this.shared.colour.vibrant;
-  //   }
-  // }
 }
 </script>
 

@@ -1,14 +1,16 @@
 <template lang="html">
-  <div class="text-block" v-if="this.blockText">
-    <transition name="title-slide">
-      <h1 class="work-title" v-if="showTitle">{{ blockTitle }}</h1>
-    </transition>
-    <transition name="divider-slide">
-      <object class="divider" width="35%" height="5px" v-if="showDivider"></object>
-    </transition>
-    <transition name="description-slide" v-on:after-leave="changeState">
-      <p class="work-text" v-if="showDescription">{{ blockText }}</p>
-    </transition>
+  <div class="elemental-cock">
+    <div class="text-block" v-if="this.blockText">
+      <transition name="title-slide">
+        <h1 class="work-title" v-if="showTitle">{{ blockTitle }}</h1>
+      </transition>
+      <transition name="divider-slide">
+        <object class="divider" width="35%" height="5px" v-if="showDivider"></object>
+      </transition>
+      <transition name="description-slide" v-on:after-leave="changeState">
+        <p class="work-text" v-if="showDescription">{{ blockText }}</p>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -70,6 +72,8 @@ export default {
 
 <style lang="scss">
   $divider-distance: 2vh;
+  $slide-distance: 200%;
+  $slide-out-duration: .9s;
 
   .text-block {
     position: absolute;
@@ -111,9 +115,9 @@ export default {
 
   /* Title slide-in animation */
   .title-slide-leave-active {
-    transition: all .9s ease;
+    transition: all $slide-out-duration ease;
     transition-delay: .3s;
-    transform: translateX(200%);
+    transform: translateX($slide-distance);
   }
 
   .title-slide-enter-active {
@@ -121,14 +125,14 @@ export default {
   }
 
   .title-slide-enter {
-    transform: translateX(200%);
+    transform: translateX($slide-distance);
   }
 
   /* Divider slide-in animation */
   .divider-slide-leave-active {
-    transition: all .9s ease;
+    transition: all $slide-out-duration ease;
     transition-delay: .1s;
-    transform: translateX(200%);
+    transform: translateX($slide-distance);
   }
 
   .divider-slide-enter-active {
@@ -137,14 +141,14 @@ export default {
   }
 
   .divider-slide-enter {
-    transform: translateX(200%);
+    transform: translateX($slide-distance);
   }
 
   /* Description slide-in animation */
   .description-slide-leave-active {
-    transition: all .9s ease;
+    transition: all $slide-out-duration ease;
     transition-delay: .5s;
-    transform: translateX(200%);
+    transform: translateX($slide-distance);
   }
 
   .description-slide-enter-active {
@@ -153,6 +157,6 @@ export default {
   }
 
   .description-slide-enter {
-    transform: translateX(200%);
+    transform: translateX($slide-distance);
   }
 </style>
