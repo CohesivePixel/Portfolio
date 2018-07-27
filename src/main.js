@@ -1,4 +1,3 @@
-// TODO: Social Media Icons
 // TODO: Landing page
 // TODO: Adding Content page
 // TODO: Mobile Version
