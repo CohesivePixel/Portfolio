@@ -22,6 +22,11 @@ export default {
     this.setBlockHeight();
     this.getTitle();
     this.getDesc();
+
+    Event.$on('swipe', () => {
+      this.getTitle();
+      this.getDesc();
+    })
   },
 
   methods: {

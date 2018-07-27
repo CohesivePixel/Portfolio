@@ -1,7 +1,6 @@
 <template lang="html">
   <img  id="pic"
         ref="picture"
-        v-if="this.image"
         :class="[this.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
         :src="image"
         :alt="alt"
@@ -33,6 +32,7 @@ export default {
 
   created() {
     this.getImage();
+    Event.$on('swipe', () => this.getImage());
   },
 
   methods: {
@@ -40,11 +40,7 @@ export default {
       this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image')
         .then((response) => {
           this.image = require('../assets/images/' + response.data[0]);
-        });
-
-      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/vertical')
-        .then((response) => {
-          this.vertical = response.data[0];
+          this.vertical = response.data[1];
         });
       return;
     }
