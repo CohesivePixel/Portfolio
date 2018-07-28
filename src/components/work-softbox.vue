@@ -72,18 +72,4 @@ export default {
     height: 60vh;
     margin-left: 20vw;
   }
-
-  .picture-slide-leave-active {
-    transition: all 1.5s ease;
-    transform: translateX(-200%);
-  }
-
-  .picture-slide-enter-active {
-    transition: all 0.8s ease;
-    transition-delay: .7s;
-  }
-
-  .picture-slide-enter {
-    transform: translateX(-200%);
-  }
 </style>
