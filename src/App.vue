@@ -16,13 +16,13 @@
 import {common} from './main.js';
 import _ from 'lodash';
 
-import ColouredBackplate from './components/coloured-backplate.vue';
-import AuthorName from './components/author-name.vue';
-import ProgressBar from './components/progress-bar.vue';
-import WorkSoftbox from './components/work-softbox.vue';
-import TextBlock from './components/text-block.vue';
-import SocialIcons from './components/social-icons.vue';
-import ButtonNext from './components/button-next.vue';
+import ColouredBackplate from 'components/coloured-backplate.vue';
+import AuthorName from 'components/author-name.vue';
+import ProgressBar from 'components/progress-bar.vue';
+import WorkSoftbox from 'components/work-softbox.vue';
+import TextBlock from 'components/text-block.vue';
+import SocialIcons from 'components/social-icons.vue';
+import ButtonNext from 'components/button-next.vue';
 
 const vibrant = require('node-vibrant');
 const rgbHex = require('rgb-hex');
@@ -82,7 +82,7 @@ export default {
     }),
     defineColours() {
       this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image').then(response => {
-        this.image = require('./assets/images/' + response.data[0])
+        this.image = require('assets/images/' + response.data[0])
         vibrant.from(this.image).getPalette()
           .then((palette) => {
             this.shared.colour.vibrant = '#' + this.getHex(palette.Vibrant);

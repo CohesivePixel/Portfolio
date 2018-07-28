@@ -5,9 +5,7 @@
 </template>
 
 <script>
-const path = require('path');
-
-import {common} from '../main.js';
+import {common} from 'src/main.js';
 import StandardIcon from 'assets/icons/arrow-standard.svg';
 import InvertedIcon from 'assets/icons/arrow-inverted.svg';
 

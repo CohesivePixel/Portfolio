@@ -1,10 +1,6 @@
 <template lang="html">
-  <div class="social-container">
-    <a href="#"><img class="social-icon" src="../assets/icons/facebook.svg" /></a>
-    <a href="#"><img class="social-icon" src="../assets/icons/instagram.svg" /></a>
-    <a href="#"><img class="social-icon" src="../assets/icons/twitter.svg" /></a>
-    <a href="#"><img class="social-icon" src="../assets/icons/whatsapp.svg" /></a>
-    <a href="#"><img class="social-icon" src="../assets/icons/youtube.svg" /></a>
+  <div class="social-container" >
+    <img v-for="item of iconList" class="social-icon" :src="buildPath(item)"/>
   </div>
 </template>
 
@@ -12,7 +8,20 @@
 export default {
   data() {
     return {
-      hoverOver: false
+      hoverOver: false,
+      iconList: [
+        'facebook.svg',
+        'instagram.svg',
+        'twitter.svg',
+        'whatsapp.svg',
+        'youtube.svg'
+      ]
+    }
+  },
+
+  methods: {
+    buildPath(name) {
+      return require('assets/icons/' + name);
     }
   }
 }

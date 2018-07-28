@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {common} from '../main.js';
+import {common} from 'src/main.js';
 
 export default {
   props: {
