@@ -1,6 +1,6 @@
 <template lang="html">
   <transition name="btn-next-slide" v-on:after-leave="changeState">
-      <img class="nav-btn" :src="iconPath"  @click="addCounter" v-if="showBtn">
+      <img class="nav-btn" :src="iconPath"  @click="addCounter" @mouseover="setStandard" @mouseleave="setInverted" v-if="showBtn">
   </transition>
 </template>
 
@@ -19,7 +19,7 @@ export default {
   },
 
   created() {
-    this.setStandard();
+    this.setInverted();
     Event.$on('swipe', () => this.toNext());
   },
 
