@@ -32,6 +32,7 @@ export default {
       this.showBtn = true;
     }
   }
+}
 </script>
 
 <style lang="scss">
