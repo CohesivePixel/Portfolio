@@ -6,7 +6,7 @@
       <work-softbox></work-softbox>
       <text-block></text-block>
     </div>
-    <!-- <button-next></button-next> -->
+    <button-next></button-next>
     <social-icons></social-icons>
     <coloured-backplate></coloured-backplate>
   </div>
