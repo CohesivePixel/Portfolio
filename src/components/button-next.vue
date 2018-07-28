@@ -1,25 +1,37 @@
 <template lang="html">
   <transition name="btn-next-slide" v-on:after-leave="changeState">
-      <img class="nav-btn" src="../assets/icons/arrow-standard.svg"  @click="addCounter" v-if="showBtn">
+      <img class="nav-btn" :src="iconPath"  @click="addCounter" v-if="showBtn">
   </transition>
 </template>
 
 <script>
+const path = require('path');
+
 import {common} from '../main.js';
+import StandardIcon from 'assets/icons/arrow-standard.svg';
+import InvertedIcon from 'assets/icons/arrow-inverted.svg';
 
 export default {
   data() {
     return {
       shared: common,
-      showBtn: true
+      showBtn: true,
+      iconPath: '',
     }
   },
 
   created() {
+    this.setStandard();
     Event.$on('swipe', () => this.toNext());
   },
 
   methods: {
+    setStandard() {
+      this.iconPath = StandardIcon;
+    },
+    setInverted() {
+      this.iconPath = InvertedIcon
+    },
     addCounter() {
       this.shared.active += 1;
       this.toNext();
@@ -37,6 +49,7 @@ export default {
 
 <style lang="scss">
   $size: 2vw;
+  $swipe-distance: 10vh;
 
   .nav-btn {
     width: $size;
@@ -48,8 +61,8 @@ export default {
   }
 
   .btn-next-slide-leave-active {
-    transition: all 1.5s ease;
-    transform: translateX(200%)
+    transition: all 1.2s ease;
+    transform: translateX($swipe-distance)
                rotate(-180deg);
   }
 
@@ -59,6 +72,6 @@ export default {
   }
 
   .btn-next-slide-enter {
-    transform: translateX(200%)
+    transform: translateX($swipe-distance)
   }
 </style>
