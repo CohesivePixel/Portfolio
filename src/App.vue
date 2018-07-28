@@ -6,6 +6,7 @@
       <work-softbox></work-softbox>
       <text-block></text-block>
     </div>
+    <button-next></button-next>
     <social-icons></social-icons>
     <coloured-backplate></coloured-backplate>
   </div>
@@ -21,6 +22,7 @@ import ProgressBar from './components/progress-bar.vue';
 import WorkSoftbox from './components/work-softbox.vue';
 import TextBlock from './components/text-block.vue';
 import SocialIcons from './components/social-icons.vue';
+import ButtonNext from './components/button-next.vue';
 
 const vibrant = require('node-vibrant');
 const rgbHex = require('rgb-hex');
@@ -46,7 +48,8 @@ export default {
       ProgressBar,
       WorkSoftbox,
       TextBlock,
-      SocialIcons
+      SocialIcons,
+      ButtonNext
   },
 
   computed: {
