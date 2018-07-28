@@ -66,6 +66,13 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 100000
+        }
       }
     ]
   },

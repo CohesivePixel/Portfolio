@@ -1,116 +1,74 @@
 <template lang="html">
-  <div class="progress-bar">
-    <div class="progress">
-
-    </div>
+  <div class="progress-container" :style="progressGradient" v-if="colour">
+    <div class="progress" :style="progressMask"></div>
   </div>
 </template>
 
 <script>
+import {common} from '../main.js';
+
 export default {
-  props: [
-    'maximum',
-    'progress'
-  ],
+  props: {
+    range: Number
+  },
 
   data() {
     return {
-      part: 0
+      shared: common,
+      progressGradient: {
+        background: '',
+        transition: 'background 1.35s ease'
+      },
+      progressMask: {
+        width: '',
+        transition: 'width 1.35s ease'
+      }
+    }
+  },
+
+  created() {
+    this.calculatePercentage();
+    this.setGradient();
+  },
+
+  computed: {
+    colour() {
+      return this.shared.colour.lightVibrant;
+    },
+    active() {
+      return this.shared.active;
+    }
+  },
+
+  watch: {
+    colour() {
+      this.setGradient();
+    },
+    active() {
+      this.calculatePercentage();
     }
   },
 
   methods: {
     calculatePercentage() {
-      this.part = 100 - Math.round((this.progress / this.maximum) * 100);
+      this.progressMask.width = (100 - Math.round((this.shared.active / this.range) * 100)).toString() + '%';
+    },
+    setGradient() {
+      this.progressGradient.background = 'linear-gradient(to right,' + this.shared.colour.lightVibrant + ',' + this.shared.colour.lightMuted + ')';
     }
-  },
-
-  beforeMount() {
-    this.calculatePercentage();
   }
 }
 </script>
 
 <style lang="scss">
-  .progress-bar {
-      background: linear-gradient(to right, rgb(183, 30, 138) 0%, rgb(239, 23, 70) 100%);
-      width: 100%;
-      height: 1vh;
+  .progress-container {
+    width: 100%;
+    height: 0.5vh;
 
-      .progress {
-        width: 97%;
-        background-color: white;
-        height: 1vh;
-        float: right;
+    .progress {
+      height: 100%;
+      background-color: #eee;
+      float: right;
     }
   }
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <template lang="html">
-  <div class="bar">
-    <div :class="{ 'indicator' : true, 'active' : active }" v-for="page in totalPages">
-      {{ setActive(page) }}
-      {{ page }}
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  props: [
-    'totalPages',
-    'activePage'
-  ],
-
-  data() {
-    return {
-      page: this.activePage,
-      active: 0
-    }
-  },
-
-  methods: {
-    setActive(number) {
-      if (number === this.page) {
-        this.active = 1;
-      } else {
-        this.active = 0;
-      }
-      return;
-    }
-  }
-}
-</script>
-
-<style lang="scss">
-  $size: 8.5px;
-
-  .bar {
-    margin: 1.4vh 10vw 3.4vh;
-  }
-
-  .indicator {
-    display: inline-block;
-    margin-right: 30px;
-    width: $size;
-    height: $size;
-    background-color: rgb(216, 216, 216);
-  }
-
-  .active {
-    @extend .indicator;
-    background: linear-gradient(rgb(183, 30, 138), rgb(239, 23, 70));
-  }
-</style> -->

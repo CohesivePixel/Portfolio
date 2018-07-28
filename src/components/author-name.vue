@@ -1,24 +1,45 @@
 <template lang="html">
-  <h1 class="author-name"> | EY</h1>
+  <div class="author-title" v-if="shared.colour.vibrant">
+    <h1 class="firstname" :style="nameStyle">BEN</h1>
+    <h1 class="lastname"> | EY</h1>
+  </div>
 </template>
 
 <script>
-export default {
+import {common} from '../main.js';
 
+export default {
+  data() {
+    return {
+      shared: common,
+      nameStyle: {
+        color: '',
+        transition: 'color .85s ease'
+      }
+    }
+  },
+
+  beforeUpdate() {
+    this.nameStyle.color = this.shared.colour.vibrant;
+  }
 }
 </script>
 
 <style lang="scss">
-  .author-name {
-    font-family: 'Avenir-Black';
-    font-size: 2.4rem;
-    padding-top: 3.4vh;
-    padding-left: 10vw;
+  .author-title {
+    padding-top: 4.5vh;
+    padding-left: 5vw;
     margin: 0;
 
-    &:before {
-      content: 'BEN';
-      color: red;
+    .lastname {
+      font-family: 'Avenir-Black';
+      font-size: 2.8vw;
+      float: left;
+    }
+
+    .firstname {
+      @extend .lastname;
+      margin-right: 1.8vh;
     }
   }
 </style>

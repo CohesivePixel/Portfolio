@@ -1,33 +1,79 @@
 <template lang="html">
-  <div class="text-block">
-    <h1 class="work-title">{{ blockTitle }}</h1>
-    <object class="divider" width="35%" height="5px"></object>
-    <p class="work-text">{{ blockText }}</p>
+  <div class="elemental-cock">
+    <div class="text-block" v-if="this.blockText">
+      <transition name="title-slide">
+        <h1 class="work-title" v-if="showTitle">{{ blockTitle }}</h1>
+      </transition>
+      <transition name="divider-slide">
+        <object class="divider" width="35%" height="5px" v-if="showDivider"></object>
+      </transition>
+      <transition name="description-slide" v-on:after-leave="changeState">
+        <p class="work-text" v-if="showDescription">{{ blockText }}</p>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
+import {common} from '../main.js';
+
 export default {
   data() {
     return {
-      blockTitle: 'JAARTRUI',
-      blockText: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodoligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Intege tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.'
+      shared: common,
+      blockTitle: '',
+      blockText: '',
+      showTitle: 1,
+      showDivider: 1,
+      showDescription: 1
     }
   },
+
+  created() {
+    this.setBlockHeight();
+    this.getTitle();
+    this.getDesc();
+
+    Event.$on('swipe', () => {
+      this.slideOut()
+    })
+  },
+
   methods: {
     setBlockHeight() {
       const imgFrame = document.getElementById('pic');
       return;
+    },
+    getTitle() {
+        this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/title')
+            .then(response => this.blockTitle = response.data[0])
+        return
+    },
+    getDesc() {
+      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/description')
+          .then(response => this.blockText = response.data[0])
+      return
+    },
+    slideOut() {
+      this.showTitle = 0;
+      this.showDivider = 0;
+      this.showDescription = 0;
+    },
+    changeState() {
+      this.getTitle();
+      this.getDesc();
+      this.showTitle = 1;
+      this.showDivider = 1;
+      this.showDescription = 1;
     }
-  },
-  mounted() {
-    this.setBlockHeight();
   }
 }
 </script>
 
 <style lang="scss">
   $divider-distance: 2vh;
+  $slide-distance: 200%;
+  $slide-out-duration: .9s;
 
   .text-block {
     position: absolute;
@@ -65,5 +111,52 @@ export default {
     float: right;
     display: block;
     background-color: white;
+  }
+
+  /* Title slide-in animation */
+  .title-slide-leave-active {
+    transition: all $slide-out-duration ease;
+    transition-delay: .3s;
+    transform: translateX($slide-distance);
+  }
+
+  .title-slide-enter-active {
+    transition: all .5s ease;
+  }
+
+  .title-slide-enter {
+    transform: translateX($slide-distance);
+  }
+
+  /* Divider slide-in animation */
+  .divider-slide-leave-active {
+    transition: all $slide-out-duration ease;
+    transition-delay: .1s;
+    transform: translateX($slide-distance);
+  }
+
+  .divider-slide-enter-active {
+    transition: all .5s ease;
+    transition-delay: .8s;
+  }
+
+  .divider-slide-enter {
+    transform: translateX($slide-distance);
+  }
+
+  /* Description slide-in animation */
+  .description-slide-leave-active {
+    transition: all $slide-out-duration ease;
+    transition-delay: .5s;
+    transform: translateX($slide-distance);
+  }
+
+  .description-slide-enter-active {
+    transition: all .5s ease;
+    transition-delay: .4s;
+  }
+
+  .description-slide-enter {
+    transform: translateX($slide-distance);
   }
 </style>

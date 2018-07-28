@@ -1,18 +1,58 @@
 <template lang="html">
-  <img id="pic" class="picture" :src="source" :alt="altmsg" :title="titlemsg">
+  <transition name="picture-slide" v-on:after-leave="changeState">
+    <img  id="pic"
+          ref="picture"
+          v-if="showPicture"
+          :class="[this.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
+          :src="image"
+          :alt="alt"
+          :title="title">
+  </transition>
 </template>
-
 <script>
-import ImgTable from '../assets/images/3 - Table.png';
-import ImgBaseLine from '../assets/images/BaseLine Desktop.jpg';
-import ImgJaar from '../assets/images/Jaar \'17@3x-100.jpg';
+import {common} from '../main.js';
 
 export default {
   data() {
     return {
-      source: ImgBaseLine,
-      altmsg: 'This image seems to be broken',
-      titlemsg: 'Werktitel'
+      shared: common,
+      image: '',
+      alt: '',
+      title: '',
+      vertical: 0,
+      showPicture: 1,
+      styles: {
+        pictureClass: 'picture',
+        horizontalClass: 'picture-hrz',
+        verticalClass: 'picture-vrt'
+      }
+    }
+  },
+
+  beforeUpdate() {
+    this.getImage();
+  },
+
+  created() {
+    this.getImage();
+    Event.$on('swipe', () => this.slideOut());
+  },
+
+  methods: {
+    getImage() {
+      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image')
+        .then((response) => {
+          this.image = require('../assets/images/' + response.data[0]);
+          this.vertical = response.data[1];
+        });
+      return;
+    },
+    slideOut() {
+      this.showPicture = 0;
+    },
+    changeState(el) {
+      this.getImage();
+      this.showPicture = 1;
     }
   }
 }
@@ -21,8 +61,29 @@ export default {
 <style lang="scss">
   .picture {
     box-shadow: 0 5px 45px rgba(69, 69, 69, 0.5);
+  }
+
+  .picture-hrz {
     width: 45vw;
-    //height: 60vh;
     margin-left: 10vw;
+  }
+
+  .picture-vrt {
+    height: 60vh;
+    margin-left: 20vw;
+  }
+
+  .picture-slide-leave-active {
+    transition: all 1.5s ease;
+    transform: translateX(-200%);
+  }
+
+  .picture-slide-enter-active {
+    transition: all 0.8s ease;
+    transition-delay: .7s;
+  }
+
+  .picture-slide-enter {
+    transform: translateX(-200%);
   }
 </style>

@@ -1,67 +1,110 @@
 <template>
-  <div id="app">
-    <progress-bar :maximum="total" :progress="active"></progress-bar>
+  <div id="app" @wheel="slideNew($event)">
+    <progress-bar :range="complete"></progress-bar>
     <author-name></author-name>
     <div class="content-container">
       <work-softbox></work-softbox>
       <text-block></text-block>
     </div>
-    <coloured-backplate :colour="{Red: vibrantColours.r, Green: vibrantColours.g, Blue: vibrantColours.b}"></coloured-backplate>
+    <button-next></button-next>
+    <social-icons></social-icons>
+    <coloured-backplate></coloured-backplate>
   </div>
 </template>
 
 <script>
+import {common} from './main.js';
+import _ from 'lodash';
+
 import ColouredBackplate from './components/coloured-backplate.vue';
 import AuthorName from './components/author-name.vue';
 import ProgressBar from './components/progress-bar.vue';
 import WorkSoftbox from './components/work-softbox.vue';
 import TextBlock from './components/text-block.vue';
+import SocialIcons from './components/social-icons.vue';
+import ButtonNext from './components/button-next.vue';
 
-const Vibrant = require('node-vibrant');
-
-import ImgTable from './assets/images/3 - Table.png';
-import ImgBaseLine from './assets/images/BaseLine Desktop.jpg';
-import ImgJaar from './assets/images/Jaar \'17@3x-100.jpg';
+const vibrant = require('node-vibrant');
+const rgbHex = require('rgb-hex');
 
 export default {
   name: 'app',
+
+  data () {
+    return {
+      shared: common,
+      complete: 5,
+      image: ''
+    }
+  },
+
+  created() {
+    this.defineColours()
+  },
+
   components: {
       ColouredBackplate,
       AuthorName,
       ProgressBar,
       WorkSoftbox,
-      TextBlock
+      TextBlock,
+      SocialIcons,
+      ButtonNext
   },
 
-  data () {
-    return {
-      total: 30,
-      active: 1,
-      vibrantColours: {
-        r: 0,
-        g: 0,
-        b: 0
-      }
+  computed: {
+    active() {
+      return this.shared.active;
+    }
+  },
+
+  watch: {
+    active() {
+      this.defineColours();
     }
   },
 
   methods: {
-    getPrimaryColour() {
-      Vibrant.from(ImgBaseLine).getPalette((err, palette) => {
-        this.vibrantColours.r = palette.Vibrant._rgb[0];
-        this.vibrantColours.g = palette.Vibrant._rgb[1];
-        this.vibrantColours.b = palette.Vibrant._rgb[2];
-      });
-    }
-  },
+    slideNew: _.throttle(function(e) {
+      if(e.deltaY < 0 && this.shared.active > 1) {
+        this.shared.active -= 1
+        Event.$emit('swipe');
+      }
 
-  beforeMount() {
-    this.getPrimaryColour();
+      if(e.deltaY > 0 && this.shared.active < this.complete) {
+        this.shared.active += 1
+        Event.$emit('swipe');
+      }
+
+    }, 2000, {
+      'leading': true,
+      'trailing': false
+    }),
+    defineColours() {
+      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + this.shared.active + '/image').then(response => {
+        this.image = require('./assets/images/' + response.data[0])
+        vibrant.from(this.image).getPalette()
+          .then((palette) => {
+            this.shared.colour.vibrant = '#' + this.getHex(palette.Vibrant);
+            this.shared.colour.lightVibrant = palette.LightVibrant ? '#' + this.getHex(palette.LightVibrant) : '#fff'
+            this.shared.colour.lightMuted = palette.LightMuted ? '#' + this.getHex(palette.LightMuted) : '#fff'
+          })
+      })
+    },
+    getHex(rgb) {
+      const r = rgb._rgb[0];
+      const g = rgb._rgb[1];
+      const b = rgb._rgb[2];
+      return rgbHex(r, g, b);
+    }
   }
 }
 </script>
 
 <style lang="scss">
+  #app {
+    height: 100%;
+  }
   .content-container {
     position: absolute;
     width: 100%;
