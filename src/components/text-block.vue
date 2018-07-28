@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="elemental-cock">
-    <div class="text-block" v-if="this.blockText">
+    <div class="text-block" v-if="this.blockTitle">
       <transition name="title-slide">
         <h1 class="work-title" v-if="showTitle">{{ blockTitle }}</h1>
       </transition>

@@ -33,7 +33,7 @@ export default {
   data () {
     return {
       shared: common,
-      complete: 5,
+      complete: 6,
       image: ''
     }
   },
