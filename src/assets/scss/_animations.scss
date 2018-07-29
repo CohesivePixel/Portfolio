@@ -1,22 +1,22 @@
-$divider-distance: 2vh;
-$slide-distance: 200%;
-$slide-out-duration: .9s;
+$slide-left: -60vw;
+$slide-right: 60vw;
+
+$duration: .6s;
 
 /*
  * Title Animation
  */
 .title-slide-leave-active {
-  transition: all $slide-out-duration ease;
-  transition-delay: .3s;
-  transform: translateX($slide-distance);
+  transition: all $duration ease;
+  transform: translateX($slide-right);
 }
 
 .title-slide-enter-active {
-  transition: all .5s ease;
+  transition: all .3s ease;
 }
 
 .title-slide-enter {
-  transform: translateX($slide-distance);
+  transform: translateX($slide-right);
 }
 /*
  * End of Title Animation
@@ -26,18 +26,17 @@ $slide-out-duration: .9s;
  * Divider animation
  */
 .divider-slide-leave-active {
-  transition: all $slide-out-duration ease;
-  transition-delay: .1s;
-  transform: translateX($slide-distance);
+  transition: all $duration ease;
+  transform: translateX($slide-right);
 }
 
 .divider-slide-enter-active {
-  transition: all .5s ease;
-  transition-delay: .8s;
+  transition: all $duration ease;
+  transition-delay: .3s;
 }
 
 .divider-slide-enter {
-  transform: translateX($slide-distance);
+  transform: translateX($slide-right);
 }
 /*
  * End of Divider Animation
@@ -47,18 +46,17 @@ $slide-out-duration: .9s;
  * Description Animation
  */
 .description-slide-leave-active {
-  transition: all $slide-out-duration ease;
-  transition-delay: .5s;
-  transform: translateX($slide-distance);
+  transition: all $duration ease;
+  transform: translateX($slide-right);
 }
 
 .description-slide-enter-active {
-  transition: all .5s ease;
-  transition-delay: .4s;
+  transition: all $duration ease;
+  transition-delay: .2s;
 }
 
 .description-slide-enter {
-  transform: translateX($slide-distance);
+  transform: translateX($slide-right);
 }
 /*
  * Description Animation
@@ -68,15 +66,14 @@ $slide-out-duration: .9s;
  * Work Softbox animation
  */
  .picture-slide-leave-active {
-   transition: all 1.5s ease;
-   transition-delay: .6s;
-   transform: translateX(-200%);
+   transition: all .3s ease;
+   transform: translateX($slide-left);
  }
 
  .picture-slide-enter-active {
-   transition: all .8s ease;
+   transition: all .3s ease;
  }
 
  .picture-slide-enter {
-   transform: translateX(-200%);
+   transform: translateX($slide-left);
  }
