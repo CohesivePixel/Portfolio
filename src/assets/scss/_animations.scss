@@ -1,22 +1,22 @@
-$slide-left: -60vw;
-$slide-right: 60vw;
-
-$duration: .6s;
+$divider-distance: 2vh;
+$slide-distance: 200%;
+$slide-out-duration: .9s;
 
 /*
  * Title Animation
  */
 .title-slide-leave-active {
-  transition: all $duration ease;
-  transform: translateX($slide-right);
+  transition: all $slide-out-duration ease;
+  transition-delay: .3s;
+  transform: translateX($slide-distance);
 }
 
 .title-slide-enter-active {
-  transition: all .3s ease;
+  transition: all .5s ease;
 }
 
 .title-slide-enter {
-  transform: translateX($slide-right);
+  transform: translateX($slide-distance);
 }
 /*
  * End of Title Animation
@@ -26,17 +26,18 @@ $duration: .6s;
  * Divider animation
  */
 .divider-slide-leave-active {
-  transition: all $duration ease;
-  transform: translateX($slide-right);
+  transition: all $slide-out-duration ease;
+  transition-delay: .1s;
+  transform: translateX($slide-distance);
 }
 
 .divider-slide-enter-active {
-  transition: all $duration ease;
-  transition-delay: .3s;
+  transition: all .5s ease;
+  transition-delay: .8s;
 }
 
 .divider-slide-enter {
-  transform: translateX($slide-right);
+  transform: translateX($slide-distance);
 }
 /*
  * End of Divider Animation
@@ -46,34 +47,39 @@ $duration: .6s;
  * Description Animation
  */
 .description-slide-leave-active {
-  transition: all $duration ease;
-  transform: translateX($slide-right);
+  transition: all $slide-out-duration ease;
+  transition-delay: .5s;
+  transform: translateX($slide-distance);
 }
 
 .description-slide-enter-active {
-  transition: all $duration ease;
-  transition-delay: .2s;
+  transition: all .5s ease;
+  transition-delay: .4s;
 }
 
 .description-slide-enter {
-  transform: translateX($slide-right);
+  transform: translateX($slide-distance);
 }
 /*
  * Description Animation
  */
 
 /*
- * Work Softbox animation
+* Work Softbox animation
+*/
+.picture-slide-leave-active {
+ transition: all 1.5s ease;
+ transition-delay: .6s;
+ transform: translateX(-200%);
+}
+
+.picture-slide-enter-active {
+ transition: all .8s ease;
+}
+
+.picture-slide-enter {
+ transform: translateX(-200%);
+}
+/*
+ * End of Work Softbox animation
  */
- .picture-slide-leave-active {
-   transition: all .3s ease;
-   transform: translateX($slide-left);
- }
-
- .picture-slide-enter-active {
-   transition: all .3s ease;
- }
-
- .picture-slide-enter {
-   transform: translateX($slide-left);
- }
