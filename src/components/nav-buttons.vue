@@ -2,7 +2,7 @@
   <div class="btn-container">
     <transition name="btn-next-slide" v-on:after-leave="changeState">
       <!-- <img class="nav-btn" :src="iconPath"  @click="addCounter" @mouseover="setStandard" @mouseleave="setInverted" v-if="showBtn"> -->
-      <svg class="nav-btn-next" x="0px" y="0px" viewBox="0 0 60 60" :style="styles.nextBtnStyle" v-if="showBtn">
+      <svg class="nav-btn-next" x="0px" y="0px" viewBox="0 0 60 60" :style="styles.nextBtnStyle" v-if="showBtn" @click="addCounter">
         <g id="Jaartrui---Desktop" transform="translate(-1339.000000, -833.000000)">
           <path id="Arrow-Right" class="st0" d="M1386.4,881.5l-15.5-15.5c-1-1-2.7-1-3.7,0l-15.5,15.5c-1,1-2.7,1-3.7,0l-7.1-7.1
             c-1-1-1-2.7,0-3.7l26.3-26.3c1-1,2.7-1,3.7,0l26.3,26.3c1,1,1,2.7,0,3.7l-7.1,7.1C1389.1,882.6,1387.4,882.6,1386.4,881.5z"/>
@@ -10,7 +10,7 @@
       </svg>
     </transition>
     <transition name="btn-prev-slide">
-      <svg class="nav-btn-prev" x="0px" y="0px" viewBox="0 0 60 60" :style="prevBtnStyle" v-if="showBtn">
+      <svg class="nav-btn-prev" x="0px" y="0px" viewBox="0 0 60 60" :style="prevBtnStyle" v-if="showBtn" @click="dropCounter">
         <g id="Jaartrui---Desktop" transform="translate(-1339.000000, -833.000000)">
           <path id="Arrow-Right" class="st0" d="M1386.4,881.5l-15.5-15.5c-1-1-2.7-1-3.7,0l-15.5,15.5c-1,1-2.7,1-3.7,0l-7.1-7.1
             c-1-1-1-2.7,0-3.7l26.3-26.3c1-1,2.7-1,3.7,0l26.3,26.3c1,1,1,2.7,0,3.7l-7.1,7.1C1389.1,882.6,1387.4,882.6,1386.4,881.5z"/>
@@ -35,7 +35,7 @@ export default {
   },
 
   created() {
-    Event.$on('swipe', () => this.toNext());
+    Event.$on('swipe', () => this.startAnim());
   },
 
   computed: {
@@ -46,18 +46,17 @@ export default {
 
   methods: {
     dropCounter() {
-
+      this.shared.active -= 1;
+      this.startAnim();
+      Event.$emit('swipe');
     },
     addCounter() {
       this.shared.active += 1;
-      this.toNext();
-    },
-    toPrev() {
-
-    },
-    toNext() {
-      this.showBtn = false;
+      this.startAnim();
       Event.$emit('swipe');
+    },
+    startAnim() {
+      this.showBtn = false;
     },
     changeState() {
       this.showBtn = true;
@@ -96,7 +95,7 @@ export default {
   }
 
   .btn-next-slide-enter-active {
-    transition: all 0.8s ease;
+    transition: all .8s ease;
     transition-delay: .7s;
   }
 
@@ -108,13 +107,13 @@ export default {
    * Animation for the 'previous' button
    */
    .btn-prev-slide-leave-active {
-     transition: all 0.8s ease;
+     transition: all .8s ease;
      transform: translateX($left-distance)
                 rotate(180deg);
    }
 
    .btn-prev-slide-enter-active {
-     transition: all 0.8s ease;
+     transition: all .8s ease;
      transition-delay: 1.5s;
    }
 
