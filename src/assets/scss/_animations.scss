@@ -1,5 +1,6 @@
 $divider-distance: 2vh;
 $slide-distance: 200%;
+$slide-in-duration: .5s;
 $slide-out-duration: .9s;
 
 /*
@@ -12,7 +13,7 @@ $slide-out-duration: .9s;
 }
 
 .title-slide-enter-active {
-  transition: all .5s ease;
+  transition: all $slide-in-duration ease;
 }
 
 .title-slide-enter {
@@ -32,7 +33,7 @@ $slide-out-duration: .9s;
 }
 
 .divider-slide-enter-active {
-  transition: all .5s ease;
+  transition: all $slide-in-duration ease;
   transition-delay: .8s;
 }
 
@@ -53,7 +54,7 @@ $slide-out-duration: .9s;
 }
 
 .description-slide-enter-active {
-  transition: all .5s ease;
+  transition: all $slide-in-duration ease;
   transition-delay: .4s;
 }
 
