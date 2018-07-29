@@ -69,12 +69,12 @@ $slide-out-duration: .9s;
  */
  .picture-slide-leave-active {
    transition: all 1.5s ease;
+   transition-delay: .6s;
    transform: translateX(-200%);
  }
 
  .picture-slide-enter-active {
    transition: all .8s ease;
-   transition-delay: .7s;
  }
 
  .picture-slide-enter {
