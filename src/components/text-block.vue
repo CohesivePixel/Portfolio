@@ -112,4 +112,10 @@ export default {
     display: block;
     background-color: white;
   }
+
+  @media(max-aspect-ratio: 1/1) {
+    .elemental-cock {
+      display: none;
+    }
+  }
 </style>

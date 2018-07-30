@@ -150,4 +150,10 @@ export default {
     transform: translateX(-10vh)
   }
 
+  @media(max-aspect-ratio: 1/1) {
+    .btn-container {
+      display: none;
+    }
+  }
+
 </style>

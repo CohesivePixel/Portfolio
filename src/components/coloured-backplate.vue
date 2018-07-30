@@ -36,4 +36,10 @@ export default {
     width: 100%;
     overflow: hidden;
   }
+
+  @media(max-aspect-ratio: 1/1) {
+    .backplate {
+      display: none;
+    }
+  }
 </style>

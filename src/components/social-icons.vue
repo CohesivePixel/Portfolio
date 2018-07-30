@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="social-container" >
+  <div class="social-container">
     <img v-for="item of iconList" class="social-icon" :src="buildPath(item)"/>
   </div>
 </template>
@@ -48,5 +48,11 @@ export default {
     @extend .social-icon;
     width: $extended-size;
     height: $extended-size;
+  }
+
+  @media(max-aspect-ratio: 1/1) {
+    .social-container {
+      display: none;
+    }
   }
 </style>

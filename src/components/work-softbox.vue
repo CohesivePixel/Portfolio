@@ -1,14 +1,17 @@
 <template lang="html">
-  <transition name="picture-slide" v-on:after-leave="changeState">
-    <img  id="pic"
-          ref="picture"
-          v-if="showPicture"
-          :class="[this.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
-          :src="image"
-          :alt="alt"
-          :title="title">
-  </transition>
+  <div class="work-softbox">
+    <transition name="picture-slide" v-on:after-leave="changeState">
+      <img  id="pic"
+            ref="picture"
+            v-if="showPicture"
+            :class="[this.vertical ? styles.verticalClass : styles.horizontalClass, styles.pictureClass]"
+            :src="image"
+            :alt="alt"
+            :title="title">
+    </transition>
+  </div>
 </template>
+
 <script>
 import {common} from 'src/main.js';
 
@@ -71,5 +74,11 @@ export default {
   .picture-vrt {
     height: 60vh;
     margin-left: 20vw;
+  }
+
+  @media(max-aspect-ratio: 1/1) {
+    .work-softbox {
+      display: none;
+    }
   }
 </style>

@@ -18,7 +18,7 @@ require('./assets/scss/main.scss');
 Event = new Vue();
 
 export let common = {
-    active: 0,
+    active: 1,
     vertical: 0,
     paths: {
       assets: path.resolve(__dirname, 'src/assets/')

@@ -42,4 +42,10 @@ export default {
       margin-right: 1.8vh;
     }
   }
+
+  @media(max-aspect-ratio: 1/1) {
+    .author-title {
+      display: none;
+    }
+  }
 </style>
