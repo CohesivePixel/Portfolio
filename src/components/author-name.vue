@@ -31,21 +31,28 @@ export default {
     padding-left: 5vw;
     margin: 0;
 
+    @media(max-aspect-ratio: 1/1) {
+      padding-top: 2vh;
+      padding-left: 6vw;
+    }
+
     .lastname {
       font-family: 'Avenir-Black';
       font-size: 2.8vw;
       float: left;
+
+      @media(max-aspect-ratio: 1/1) {
+        font-size: 5vw;
+      }
     }
 
     .firstname {
       @extend .lastname;
-      margin-right: 1.8vh;
-    }
-  }
+      margin-right: 1.6vw;
 
-  @media(max-aspect-ratio: 1/1) {
-    .author-title {
-      padding-top: 0
+      @media(max-aspect-ratio: 1/1) {
+
+      }
     }
   }
 </style>

@@ -26,7 +26,7 @@ export default {
       swipeCustoms: {
         slidesPerView: 'auto',
         centeredSlides: true,
-        spaceBetween: 50,
+        spaceBetween: 40,
         roundLengths: true,
         grabCursor: true,
         preloadImages: true
