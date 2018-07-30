@@ -32,8 +32,8 @@ export default {
     margin: 0;
 
     @media(max-aspect-ratio: 1/1) {
-      padding-top: 2vh;
-      padding-left: 6vw;
+      padding-top: 0;
+      padding-left: 9.5vw;
     }
 
     .lastname {
