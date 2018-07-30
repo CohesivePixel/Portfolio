@@ -1,7 +1,9 @@
 <template lang="html">
   <div class="swiper-container">
     <swiper :options="swipeCustoms" ref="workSwiper" @slideNextTransitionStart="nextCard" @slidePrevTransitionStart="prevCard">
-        <swiper-slide v-for="work in orderedWorks"><img class="swiper-image" :src="work.source"/></swiper-slide>
+        <swiper-slide v-for="work in orderedWorks" :key="work.page">
+          <img class="swiper-image" :src="work.source"/>
+        </swiper-slide>
     </swiper>
   </div>
 </template>
@@ -70,15 +72,26 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+  @media(min-aspect-ratio: 1/1) {
+    .swiper-container {
+      display: none;
+    }
+  }
   .swiper-image {
     width: 100%;
     box-shadow: 0 5px 25px 0 rgba(118, 118, 118, 0.5);
   }
+
   .swiper-container {
     padding: 1.5vh 0 5vh 0;
   }
+
   .swiper-slide {
     width: 80vw;
+  }
+
+  .swiper-slide-vertical {
+      height: 10vh;
   }
 </style>
