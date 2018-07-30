@@ -1,7 +1,8 @@
-// TODO: Create forward- aand backward buttons
+// DONE: Create forward- aand backward buttons
 // TODO: Landing page
 // TODO: Adding Content page
 // TODO: Mobile Version
+// TODO: Loading screen {use plugin for that}
 
 const path = require('path')
 
@@ -13,7 +14,6 @@ import App from './App.vue'
 Vue.use(VueAxios, axios);
 
 require('./assets/scss/main.scss');
-
 
 Event = new Vue();
 

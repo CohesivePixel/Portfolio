@@ -1,6 +1,7 @@
 <template>
   <div id="app" @wheel="slideNew($event)">
     <progress-bar :range="complete"></progress-bar>
+    <work-swiper></work-swiper>
     <author-name></author-name>
     <div class="content-container">
       <work-softbox></work-softbox>
@@ -23,6 +24,7 @@ import WorkSoftbox from 'components/work-softbox.vue';
 import TextBlock from 'components/text-block.vue';
 import SocialIcons from 'components/social-icons.vue';
 import NavButtons from 'components/nav-buttons.vue';
+import WorkSwiper from 'components/work-swiper.vue';
 
 const vibrant = require('node-vibrant');
 const rgbHex = require('rgb-hex');
@@ -49,7 +51,8 @@ export default {
       WorkSoftbox,
       TextBlock,
       SocialIcons,
-      NavButtons
+      NavButtons,
+      WorkSwiper
   },
 
   computed: {
