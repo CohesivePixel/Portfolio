@@ -1,9 +1,7 @@
 <template lang="html">
   <div class="swiper-container">
     <swiper :options="swipeCustoms" ref="workSwiper" @slideNextTransitionStart="nextCard" @slidePrevTransitionStart="prevCard">
-        <swiper-slide>1</swiper-slide>
-        <swiper-slide>2</swiper-slide>
-        <swiper-slide>3</swiper-slide>
+        <swiper-slide v-for="work in orderedWorks" :key="work.page"><img class="swiper-image" :src="work.source"/></swiper-slide>
     </swiper>
   </div>
 </template>
@@ -12,6 +10,7 @@
 import {common} from 'src/main.js';
 import 'swiper/dist/css/swiper.css'
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
+import _ from 'lodash';
 
 export default {
   components: {
@@ -29,7 +28,10 @@ export default {
         roundLengths: true,
         grabCursor: true,
         preloadImages: true
-      }
+      },
+      image: '',
+      works: [],
+      orderedWorks: []
     }
   },
 
@@ -39,15 +41,28 @@ export default {
     }
   },
 
+  created() {
+    for(let i = 0; i < this.shared.complete; i++) {
+      this.axios.get('http://ben-portfolio-backend.test/v1/works/' + i + '/image')
+        .then((response) => {
+          this.image = require('assets/images/' + response.data[0]);
+          this.works.push(
+            { 'page': i, 'source': this.image }
+          )
+          this.sortWorks();
+        });
+    }
+  },
+
   methods: {
+    sortWorks() {
+      this.orderedWorks = _.sortBy(this.works, ['page'])
+    },
     nextCard() {
-      alert('chickenShitArse');
       this.shared.active += 1;
       Event.$emit('swipe');
     },
-
     prevCard() {
-      alert('arseChickenShit');
       this.shared.active -= 1;
       Event.$emit('swipe');
     }
@@ -56,8 +71,15 @@ export default {
 </script>
 
 <style lang="css">
+  .swiper-image {
+    width: 100%;
+    height: 100%;
+  }
+  .swiper-container {
+    padding: 1.5vh 0 5vh 0;
+  }
   .swiper-slide {
-    border: 1px solid;
-    width: 80%;
+    width: 80vw;
+    box-shadow: 0 5px 25px 0 rgba(118, 118, 118, 0.5);
   }
 </style>

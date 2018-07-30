@@ -19,6 +19,7 @@ Event = new Vue();
 
 export let common = {
     active: 1,
+    complete: 6,
     vertical: 0,
     paths: {
       assets: path.resolve(__dirname, 'src/assets/')

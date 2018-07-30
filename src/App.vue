@@ -35,7 +35,6 @@ export default {
   data () {
     return {
       shared: common,
-      complete: 6,
       image: ''
     }
   },
@@ -58,6 +57,9 @@ export default {
   computed: {
     active() {
       return this.shared.active;
+    },
+    complete() {
+      return this.shared.complete;
     }
   },
 
@@ -74,7 +76,7 @@ export default {
         Event.$emit('swipe');
       }
 
-      if(e.deltaY > 0 && this.shared.active < this.complete) {
+      if(e.deltaY > 0 && this.shared.active < this.shared.complete) {
         this.shared.active += 1
         Event.$emit('swipe');
       }
