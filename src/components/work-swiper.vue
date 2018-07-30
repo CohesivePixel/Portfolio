@@ -2,7 +2,7 @@
   <div class="swiper-container">
     <swiper :options="swipeCustoms" ref="workSwiper" @slideNextTransitionStart="nextCard" @slidePrevTransitionStart="prevCard">
         <swiper-slide v-for="work in orderedWorks" :key="work.page">
-          <img class="swiper-image" :src="work.source"/>
+          <img :class="[work.vertical ? styles.vertical: styles.horizontal, styles.picture]" :src="work.source"/>
         </swiper-slide>
     </swiper>
   </div>
@@ -33,7 +33,12 @@ export default {
       },
       image: '',
       works: [],
-      orderedWorks: []
+      orderedWorks: [],
+      styles: {
+        picture: 'swiper-image',
+        vertical: 'swiper-slide-vertical',
+        horizontal: 'swiper-slide-horizontal'
+      }
     }
   },
 
@@ -49,7 +54,7 @@ export default {
         .then((response) => {
           this.image = require('assets/images/' + response.data[0]);
           this.works.push(
-            { 'page': i, 'source': this.image }
+            { 'page': i, 'source': this.image, 'vertical': response.data[1] }
           )
           this.sortWorks();
         });
@@ -78,13 +83,14 @@ export default {
       display: none;
     }
   }
+
   .swiper-image {
     width: 100%;
     box-shadow: 0 5px 25px 0 rgba(118, 118, 118, 0.5);
   }
 
   .swiper-container {
-    padding: 1.5vh 0 5vh 0;
+    padding: 1.5vh 0;
   }
 
   .swiper-slide {
@@ -92,6 +98,11 @@ export default {
   }
 
   .swiper-slide-vertical {
-      height: 10vh;
+      width: 40vw;
+      margin-left: 20vw;
+  }
+
+  .swiper-slide-horizontal {
+
   }
 </style>

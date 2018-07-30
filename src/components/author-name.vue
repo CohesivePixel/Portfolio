@@ -45,7 +45,7 @@ export default {
 
   @media(max-aspect-ratio: 1/1) {
     .author-title {
-      display: none;
+      padding-top: 0
     }
   }
 </style>
