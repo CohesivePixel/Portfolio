@@ -1,16 +1,16 @@
 // DONE: Create forward- aand backward buttons
-// TODO: Landing page
-// TODO: Adding Content page
 // TODO: Mobile Version
+// TODO: Fix swapping-resize bug on chrome
+// TODO: Add SVG to Mobile
+// TODO: Remove Ben-Ey from mobile
+// TODO: Add title and text to mobile
 // TODO: Loading screen {use plugin for that}
 
-const path = require('path')
-
 import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
 import App from './App.vue'
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios);
 
 require('./assets/scss/main.scss');
@@ -21,9 +21,6 @@ export let common = {
     active: 1,
     complete: 6,
     vertical: 0,
-    paths: {
-      assets: path.resolve(__dirname, 'src/assets/')
-    },
     colour: {
       vibrant: '',
       lightVibrant: '',

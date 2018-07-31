@@ -6,8 +6,8 @@
     <div class="content-container">
       <work-softbox></work-softbox>
       <text-block></text-block>
+      <nav-buttons></nav-buttons>
     </div>
-    <nav-buttons></nav-buttons>
     <social-icons></social-icons>
     <coloured-backplate></coloured-backplate>
   </div>
@@ -115,5 +115,6 @@ export default {
     width: 100%;
     top: 50%;
     transform: translateY(-45%);
+    overflow: hidden;
   }
 </style>
