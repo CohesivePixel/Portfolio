@@ -82,7 +82,6 @@ export default {
     width: 25vw;
     float: right;
     margin: 0 7vw;
-    overflow: hidden;
 
     .work-text {
       font-family: "Open Sans";
